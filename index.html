@@ -1,1543 +1,1939 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<!--
-===========================================
-СПИСОК ПЛЕЙСХОЛДЕРОВ ДЛЯ ЗАМЕНЫ:
-===========================================
-1.  [ГОРОД]          — город офлайн-приёма (например: Москва)
-2.  [ЦЕНА_ПРОГРАММЫ] — стоимость программы «Гормональный перезапуск 45+» в рублях
-3.  [ЦЕНА_КОНСУЛЬТ]  — стоимость первичной консультации в рублях
-4.  [ЛЕТА_ОПЫТА]     — количество лет опыта (например: 8)
-5.  [TG_USERNAME]    — username в Telegram (например: @dr_rusova)
-6.  [PHONE]          — номер телефона (например: +7 (999) 123-45-67)
-7.  [IG_USERNAME]    — username в Instagram (например: @dr_rusova)
-8.  BOT_TOKEN        — токен Telegram-бота от @BotFather
-9.  CHAT_ID          — ваш Telegram chat ID от @userinfobot
-10. Фото врача       — заменить placeholder-блоки на теги <img>
-===========================================
--->
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Русова Елена Леонидовна — врач интегративной медицины, гинеколог-эндокринолог. Помогаю женщинам 45+ восстановить гормональный баланс. Онлайн и офлайн консультации.">
-<meta property="og:title" content="Русова Елена — Гормональный перезапуск 45+">
-<meta property="og:description" content="Восстановите гормональный баланс, верните энергию и качество жизни. Онлайн консультации.">
-<meta property="og:image" content="[OG_IMAGE_URL]">
-<title>Русова Елена Леонидовна — Интегративная медицина · Гормональный баланс 45+</title>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Елена Русова — Врач интегративной медицины · Гормональный баланс 45+</title>
+  <meta name="description" content="Гинеколог-эндокринолог, специалист по гормональному балансу и anti-aging. Помогаю женщинам 45+ вернуть энергию и здоровье. Онлайн-консультации и в Москве.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
-  :root {
-    --primary: #2D5F4E;
-    --primary-light: #EAF4EF;
-    --accent: #C4805A;
-    --text: #1A1A1A;
-    --text-muted: #6B6B6B;
-    --bg: #FAFAF8;
-    --white: #FFFFFF;
-    --radius-card: 12px;
-    --radius-btn: 8px;
-  }
+  <style>
+    /* =========================================================
+       VARIABLES
+    ========================================================= */
+    :root {
+      --primary:       #2D5F4E;
+      --primary-dark:  #1a3d30;
+      --primary-mid:   #3a7a63;
+      --primary-light: #EAF4EF;
+      --accent:        #C4805A;
+      --accent-dark:   #a8663e;
+      --text:          #1A1A1A;
+      --text-muted:    #6B6B6B;
+      --bg:            #FAFAF8;
+      --white:         #FFFFFF;
+      --border:        #E5E5E0;
+      --shadow-sm:     0 2px 12px rgba(0,0,0,0.06);
+      --shadow-md:     0 6px 30px rgba(0,0,0,0.10);
+      --shadow-lg:     0 12px 60px rgba(0,0,0,0.15);
+      --shadow-green:  0 12px 48px rgba(45,95,78,0.30);
+      --radius-s:  8px;
+      --radius-m:  16px;
+      --radius-l:  24px;
+      --t: 0.3s ease;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans:  'Lato', system-ui, sans-serif;
+    }
 
-  html { scroll-behavior: smooth; }
+    /* =========================================================
+       RESET & BASE
+    ========================================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul, ol { list-style: none; }
+    button { font-family: var(--font-sans); cursor: pointer; }
 
-  body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    font-size: 16px;
-  }
+    /* =========================================================
+       LAYOUT
+    ========================================================= */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+    .section { padding: 100px 0; }
+    .section--alt { background: var(--primary-light); }
 
-  img { max-width: 100%; display: block; }
-  a { color: inherit; text-decoration: none; }
+    .section__header { text-align: center; max-width: 700px; margin: 0 auto 68px; }
+    .section__label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .section--dark .section__label { color: #e8a87c; }
+    .section__title {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+    .section--dark .section__title { color: var(--white); }
+    .section__sub { font-size: 18px; color: var(--text-muted); line-height: 1.7; }
+    .section--dark .section__sub { color: rgba(255,255,255,0.72); }
 
-  .container {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
+    /* =========================================================
+       BUTTONS
+    ========================================================= */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 15px 34px;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: var(--font-sans);
+      border-radius: 50px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all var(--t);
+      white-space: nowrap;
+      min-height: 52px;
+      line-height: 1;
+    }
+    .btn--primary { background: var(--primary); color: var(--white); border-color: var(--primary); }
+    .btn--primary:hover { background: var(--primary-dark); border-color: var(--primary-dark); transform: translateY(-2px); box-shadow: var(--shadow-green); }
+    .btn--accent { background: var(--accent); color: var(--white); border-color: var(--accent); }
+    .btn--accent:hover { background: var(--accent-dark); border-color: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 8px 36px rgba(196,128,90,0.45); }
+    .btn--outline { background: transparent; color: var(--white); border-color: rgba(255,255,255,0.45); }
+    .btn--outline:hover { background: rgba(255,255,255,0.12); border-color: var(--white); transform: translateY(-2px); }
+    .btn--outline-green { background: transparent; color: var(--primary); border-color: var(--primary); }
+    .btn--outline-green:hover { background: var(--primary); color: var(--white); transform: translateY(-2px); }
+    .btn--lg { padding: 18px 44px; font-size: 17px; min-height: 58px; }
+    .btn--sm { padding: 11px 26px; font-size: 15px; min-height: 44px; }
+    .btn--full { width: 100%; }
 
-  /* ── BUTTONS ── */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 14px 28px;
-    border-radius: var(--radius-btn);
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    transition: opacity .2s;
-    text-decoration: none;
-  }
-  .btn:hover { opacity: .85; }
-  .btn-primary { background: var(--primary); color: var(--white); }
-  .btn-accent  { background: var(--accent);  color: var(--white); }
-  .btn-outline {
-    background: transparent;
-    border: 2px solid var(--primary);
-    color: var(--primary);
-  }
-  .btn-sm { padding: 10px 20px; font-size: 14px; }
+    /* =========================================================
+       SCROLL ANIMATIONS
+    ========================================================= */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: none; }
+    .delay-1 { transition-delay: 0.10s; }
+    .delay-2 { transition-delay: 0.20s; }
+    .delay-3 { transition-delay: 0.30s; }
+    .delay-4 { transition-delay: 0.40s; }
+    .delay-5 { transition-delay: 0.50s; }
 
-  /* ── SECTION TITLES ── */
-  .section-title {
-    font-size: clamp(26px, 4vw, 38px);
-    font-weight: 700;
-    line-height: 1.25;
-    color: var(--text);
-  }
-  .section-subtitle {
-    font-size: 18px;
-    color: var(--text-muted);
-    margin-top: 12px;
-  }
-  .title-block { margin-bottom: 48px; }
+    /* =========================================================
+       HEADER
+    ========================================================= */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 20px 0;
+      transition: all var(--t);
+    }
+    .header.scrolled {
+      background: var(--white);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.09);
+      padding: 12px 0;
+    }
+    .header__inner { display: flex; align-items: center; gap: 20px; }
+    .header__logo {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--white);
+      transition: color var(--t);
+      flex-shrink: 0;
+    }
+    .header.scrolled .header__logo { color: var(--primary); }
+    .header__nav { display: flex; align-items: center; gap: 28px; margin-left: auto; }
+    .header__nav a {
+      font-size: 15px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.82);
+      transition: color var(--t);
+      position: relative;
+      padding-bottom: 3px;
+    }
+    .header__nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: width var(--t);
+    }
+    .header__nav a:hover { color: var(--white); }
+    .header__nav a:hover::after { width: 100%; }
+    .header.scrolled .header__nav a { color: var(--text-muted); }
+    .header.scrolled .header__nav a:hover { color: var(--primary); }
+    .header__cta { margin-left: 12px; flex-shrink: 0; }
+    .header.scrolled .header__cta.btn--outline { background: var(--accent); border-color: var(--accent); color: var(--white); }
 
-  section { padding: 80px 0; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 6px; margin-left: auto; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all var(--t); }
+    .header.scrolled .hamburger span { background: var(--primary); }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-  /* ════════════════════════════════
-     NAV
-  ════════════════════════════════ */
-  .nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--white);
-    border-bottom: 0.5px solid #E0E0E0;
-  }
-  .nav__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 68px;
-  }
-  .nav__logo-name {
-    font-size: 17px;
-    font-weight: 700;
-    color: var(--primary);
-    line-height: 1.2;
-  }
-  .nav__logo-sub {
-    font-size: 12px;
-    color: var(--text-muted);
-    font-weight: 400;
-  }
-  .nav__links {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    list-style: none;
-  }
-  .nav__links a {
-    font-size: 15px;
-    color: var(--text);
-    transition: color .2s;
-  }
-  .nav__links a:hover { color: var(--primary); }
-  .nav__links .nav-cta {
-    background: var(--primary);
-    color: var(--white);
-    padding: 10px 22px;
-    border-radius: var(--radius-btn);
-    font-weight: 600;
-  }
-  .nav__links .nav-cta:hover { opacity: .85; color: var(--white); }
+    .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 990; }
+    .nav-overlay.open { display: block; }
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: var(--white);
+      padding: 72px 28px 40px;
+      z-index: 995;
+      box-shadow: var(--shadow-lg);
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 20px; font-weight: 700; color: var(--text); padding: 18px 0; border-bottom: 1px solid var(--border); transition: color var(--t); }
+    .mobile-nav a:hover { color: var(--primary); }
+    .mobile-nav .btn { margin-top: 24px; width: 100%; }
 
-  /* Hamburger */
-  .nav__burger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 4px;
-  }
-  .nav__burger span {
-    display: block;
-    width: 26px;
-    height: 2px;
-    background: var(--text);
-    border-radius: 2px;
-    transition: .3s;
-  }
+    /* =========================================================
+       HERO
+    ========================================================= */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(140deg, var(--primary-dark) 0%, var(--primary) 55%, var(--primary-mid) 100%);
+      display: flex;
+      align-items: center;
+      padding: 130px 0 90px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -15%; right: -8%;
+      width: 560px; height: 560px;
+      background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -25%; left: -5%;
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, rgba(196,128,90,0.10) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero__inner {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 72px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.22);
+      color: rgba(255,255,255,0.9);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 50px;
+      margin-bottom: 26px;
+    }
+    .hero__dot {
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.4); } }
+    .hero__h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(32px, 4.5vw, 58px);
+      font-weight: 700;
+      line-height: 1.12;
+      color: var(--white);
+      margin-bottom: 22px;
+    }
+    .hero__h1 em { font-style: italic; color: #e8a87c; }
+    .hero__sub { font-size: 18px; color: rgba(255,255,255,0.78); line-height: 1.75; margin-bottom: 36px; max-width: 500px; }
+    .hero__stats { display: flex; gap: 32px; margin-bottom: 40px; flex-wrap: wrap; }
+    .hero__stat { display: flex; flex-direction: column; gap: 2px; }
+    .hero__stat-num { font-family: var(--font-serif); font-size: 34px; font-weight: 700; color: var(--white); line-height: 1; }
+    .hero__stat-label { font-size: 12px; color: rgba(255,255,255,0.60); font-weight: 400; }
+    .hero__divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); align-self: center; }
+    .hero__cta-group { display: flex; flex-wrap: wrap; gap: 14px; }
 
-  /* Mobile overlay */
-  .nav__overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: var(--white);
-    z-index: 200;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 36px;
-  }
-  .nav__overlay.open { display: flex; }
-  .nav__overlay a {
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--text);
-  }
-  .nav__overlay .close-btn {
-    position: absolute;
-    top: 20px;
-    right: 24px;
-    font-size: 32px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    color: var(--text);
-  }
+    .hero__photo-wrap { position: relative; display: flex; justify-content: center; align-items: center; }
+    .hero__ring {
+      position: absolute;
+      width: 420px; height: 420px;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 50%;
+      animation: spin-slow 22s linear infinite;
+    }
+    .hero__glow {
+      position: absolute;
+      width: 340px; height: 340px;
+      background: rgba(196,128,90,0.07);
+      border-radius: 50%;
+    }
+    @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .hero__frame {
+      position: relative;
+      z-index: 2;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, rgba(255,255,255,0.18), rgba(255,255,255,0.06));
+      border: 2px solid rgba(255,255,255,0.20);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: var(--shadow-green);
+    }
+    .hero__frame img { width: 100%; height: 100%; object-fit: cover; }
+    .ph-big { font-family: var(--font-serif); font-size: 80px; font-weight: 700; color: rgba(255,255,255,0.25); line-height: 1; user-select: none; }
+    .ph-label { font-size: 12px; color: rgba(255,255,255,0.40); margin-top: 8px; letter-spacing: 1px; }
 
-  @media (max-width: 768px) {
-    .nav__links { display: none; }
-    .nav__burger { display: flex; }
-  }
+    .hero__float {
+      position: absolute;
+      bottom: 20px; right: -24px;
+      background: var(--white);
+      border-radius: var(--radius-m);
+      padding: 14px 18px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 3;
+    }
+    .hero__float-icon { font-size: 24px; }
+    .hero__float-text { font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.3; }
+    .hero__float-text span { display: block; font-weight: 400; color: var(--text-muted); font-size: 11px; }
 
-  /* ════════════════════════════════
-     HERO
-  ════════════════════════════════ */
-  .hero {
-    padding: 80px 0 60px;
-    background: var(--bg);
-  }
-  .hero__inner {
-    display: grid;
-    grid-template-columns: 1fr 380px;
-    gap: 60px;
-    align-items: center;
-  }
-  .hero__h1 {
-    font-size: clamp(30px, 4.5vw, 52px);
-    font-weight: 800;
-    line-height: 1.15;
-    color: var(--text);
-    margin-bottom: 20px;
-  }
-  .hero__sub {
-    font-size: 20px;
-    color: var(--text-muted);
-    margin-bottom: 28px;
-    line-height: 1.5;
-  }
-  .hero__proof {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-bottom: 36px;
-    padding: 12px 16px;
-    background: var(--primary-light);
-    border-radius: 8px;
-    display: inline-block;
-  }
-  .hero__ctas {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .hero__cta-link {
-    font-size: 15px;
-    color: var(--primary);
-    font-weight: 600;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-  .hero__photo {
-    width: 380px;
-    height: 460px;
-    background: var(--primary-light);
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--primary);
-    font-size: 16px;
-    font-weight: 600;
-    border: 2px dashed #A8CFC0;
-    flex-shrink: 0;
-  }
+    /* =========================================================
+       PAIN
+    ========================================================= */
+    .pain__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-bottom: 56px;
+    }
+    .pain__card {
+      background: var(--white);
+      border-radius: var(--radius-m);
+      padding: 32px 26px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition: all var(--t);
+    }
+    .pain__card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .pain__card:hover { transform: translateY(-7px); box-shadow: var(--shadow-lg); }
+    .pain__card:hover::after { transform: scaleX(1); }
+    .pain__icon {
+      width: 54px; height: 54px;
+      background: var(--primary-light);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin-bottom: 18px;
+      transition: all var(--t);
+    }
+    .pain__card:hover .pain__icon { background: var(--primary); transform: scale(1.1) rotate(-6deg); }
+    .pain__card h3 { font-family: var(--font-serif); font-size: 19px; font-weight: 600; margin-bottom: 8px; }
+    .pain__card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
 
-  @media (max-width: 900px) {
-    .hero__inner { grid-template-columns: 1fr; }
-    .hero__photo { width: 100%; max-width: 380px; height: 320px; margin: 0 auto; }
-  }
+    .pain__footer {
+      text-align: center;
+      background: var(--white);
+      border-radius: var(--radius-l);
+      padding: 52px 40px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+    }
+    .pain__footer-txt { font-family: var(--font-serif); font-size: clamp(20px, 2.5vw, 26px); color: var(--text); margin-bottom: 28px; line-height: 1.4; }
 
-  /* ════════════════════════════════
-     PAIN POINTS
-  ════════════════════════════════ */
-  .pain { background: var(--white); }
-  .pain__cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-bottom: 32px;
-  }
-  .pain__card {
-    background: var(--bg);
-    border-radius: var(--radius-card);
-    padding: 28px 24px;
-    border: 1px solid #E8E8E4;
-  }
-  .pain__icon {
-    font-size: 36px;
-    margin-bottom: 14px;
-  }
-  .pain__card-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-  .pain__card-text { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
-  .pain__callout {
-    background: var(--primary-light);
-    border-radius: var(--radius-card);
-    padding: 24px 28px;
-    font-size: 17px;
-    color: var(--primary);
-    font-weight: 500;
-    line-height: 1.6;
-    border-left: 4px solid var(--primary);
-  }
+    /* =========================================================
+       QUIZ
+    ========================================================= */
+    .quiz { background: var(--white); }
+    .quiz__wrap { max-width: 740px; margin: 0 auto; }
 
-  @media (max-width: 768px) {
-    .pain__cards { grid-template-columns: 1fr; }
-  }
+    .quiz__progress { display: flex; align-items: center; gap: 12px; margin-bottom: 48px; }
+    .quiz__bar { flex: 1; height: 5px; background: var(--primary-light); border-radius: 3px; overflow: hidden; }
+    .quiz__fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 3px;
+      width: 16.6%;
+      transition: width 0.5s ease;
+    }
+    .quiz__pct { font-size: 13px; font-weight: 700; color: var(--text-muted); white-space: nowrap; }
 
-  /* ════════════════════════════════
-     QUIZ
-  ════════════════════════════════ */
-  .quiz { background: var(--primary-light); }
-  .quiz__wrap {
-    max-width: 640px;
-    margin: 0 auto;
-  }
-  .quiz__progress {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 32px;
-  }
-  .quiz__progress-step {
-    flex: 1;
-    height: 6px;
-    background: #C5DDD5;
-    border-radius: 3px;
-    transition: background .3s;
-  }
-  .quiz__progress-step.active { background: var(--primary); }
+    .quiz__step { display: none; }
+    .quiz__step.active { display: block; animation: fadeIn 0.35s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: none; } }
 
-  .quiz__question { display: none; }
-  .quiz__question.visible { display: block; }
+    .quiz__q { font-family: var(--font-serif); font-size: clamp(20px, 3vw, 28px); font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.3; }
+    .quiz__hint { font-size: 15px; color: var(--text-muted); margin-bottom: 30px; }
+    .quiz__opts { display: grid; gap: 12px; margin-bottom: 36px; }
+    .quiz__opt {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 22px;
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-m);
+      cursor: pointer;
+      transition: all var(--t);
+      font-size: 16px;
+      color: var(--text);
+      text-align: left;
+      width: 100%;
+    }
+    .quiz__opt:hover { border-color: var(--primary); background: var(--primary-light); }
+    .quiz__opt.selected { border-color: var(--primary); background: var(--primary-light); }
+    .quiz__letter {
+      width: 34px; height: 34px;
+      background: var(--white);
+      border: 2px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      flex-shrink: 0;
+      transition: all var(--t);
+    }
+    .quiz__opt.selected .quiz__letter { background: var(--primary); border-color: var(--primary); color: var(--white); }
+    .quiz__nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
 
-  .quiz__q-title {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    color: var(--text);
-  }
-  .quiz__step-label {
-    font-size: 13px;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: .05em;
-  }
-  .quiz__options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 28px;
-  }
-  .quiz__option {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 16px;
-    background: var(--white);
-    border-radius: var(--radius-card);
-    border: 2px solid transparent;
-    cursor: pointer;
-    font-size: 15px;
-    transition: border-color .2s;
-    user-select: none;
-  }
-  .quiz__option:hover { border-color: #A8CFC0; }
-  .quiz__option input[type="radio"] { accent-color: var(--primary); width: 18px; height: 18px; flex-shrink: 0; }
-  .quiz__option.selected { border-color: var(--primary); background: #F0F9F5; }
+    .quiz__result { display: none; text-align: center; }
+    .quiz__result.active { display: block; animation: fadeIn 0.4s ease; }
+    .quiz__result-icon { font-size: 60px; margin-bottom: 16px; }
+    .quiz__result-title { font-family: var(--font-serif); font-size: 28px; font-weight: 600; margin-bottom: 10px; }
+    .quiz__result-sub { font-size: 17px; color: var(--text-muted); margin-bottom: 32px; line-height: 1.6; }
+    .quiz__form-row { display: grid; gap: 14px; margin-bottom: 20px; }
+    .quiz__input {
+      padding: 16px 20px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-s);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      color: var(--text);
+      background: var(--bg);
+      transition: border-color var(--t);
+      width: 100%;
+    }
+    .quiz__input:focus { outline: none; border-color: var(--primary); background: var(--white); }
+    .quiz__input::placeholder { color: #bbb; }
 
-  .quiz__nav {
-    display: flex;
-    gap: 12px;
-    justify-content: flex-end;
-  }
+    .quiz__success { display: none; text-align: center; padding: 48px 24px; }
+    .quiz__success.active { display: block; animation: fadeIn 0.4s ease; }
+    .quiz__success-icon { font-size: 64px; margin-bottom: 16px; }
+    .quiz__success h3 { font-family: var(--font-serif); font-size: 26px; margin-bottom: 10px; }
+    .quiz__success p { color: var(--text-muted); font-size: 16px; }
 
-  /* Lead capture */
-  .quiz__lead { display: none; }
-  .quiz__lead.visible { display: block; }
-  .quiz__lead-title {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-  .quiz__lead-sub { color: var(--text-muted); margin-bottom: 24px; }
+    /* =========================================================
+       ABOUT
+    ========================================================= */
+    .about__grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 88px; align-items: center; }
 
-  .quiz__form { display: flex; flex-direction: column; gap: 14px; }
-  .quiz__input {
-    padding: 14px 16px;
-    border: 1.5px solid #C5DDD5;
-    border-radius: var(--radius-btn);
-    font-size: 15px;
-    background: var(--white);
-    outline: none;
-    transition: border-color .2s;
-  }
-  .quiz__input:focus { border-color: var(--primary); }
-  .quiz__checkbox {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 14px;
-    color: var(--text-muted);
-    cursor: pointer;
-  }
-  .quiz__checkbox input { accent-color: var(--primary); margin-top: 3px; flex-shrink: 0; }
+    .about__photo-col { position: relative; }
+    .about__photo-col::before {
+      content: '';
+      position: absolute;
+      bottom: -24px; right: -24px;
+      width: 78%; height: 78%;
+      border: 3px solid var(--primary-light);
+      border-radius: var(--radius-l);
+      z-index: 0;
+    }
+    .about__photo-box {
+      position: relative;
+      z-index: 1;
+      border-radius: var(--radius-l);
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      background: linear-gradient(145deg, var(--primary-light) 0%, #c8e2d4 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+    }
+    .about__photo-box img { width: 100%; height: 100%; object-fit: cover; }
+    .ph-about { font-family: var(--font-serif); font-size: 96px; font-weight: 700; color: rgba(45,95,78,0.18); line-height: 1; user-select: none; }
+    .ph-about-lbl { font-size: 13px; color: var(--text-muted); margin-top: 10px; letter-spacing: 1px; }
 
-  .quiz__result { display: none; }
-  .quiz__result.visible { display: block; }
-  .quiz__result-text {
-    font-size: 18px;
-    line-height: 1.7;
-    margin-bottom: 24px;
-    color: var(--text);
-  }
+    .about__badge-float {
+      position: absolute;
+      bottom: 28px; left: -28px;
+      background: var(--white);
+      border-radius: var(--radius-m);
+      padding: 16px 20px;
+      box-shadow: var(--shadow-md);
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .about__badge-icon { font-size: 28px; }
+    .about__badge-text { font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.3; }
+    .about__badge-text span { display: block; font-weight: 400; color: var(--text-muted); font-size: 12px; }
 
-  @media (max-width: 768px) {
-    .quiz__options { grid-template-columns: 1fr; }
-  }
+    .about__chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+    }
+    .about__name { font-family: var(--font-serif); font-size: clamp(26px, 3.5vw, 40px); font-weight: 700; line-height: 1.15; margin-bottom: 6px; }
+    .about__role { font-size: 16px; color: var(--text-muted); margin-bottom: 28px; }
+    .about__bio { font-size: 17px; color: var(--text-muted); line-height: 1.8; margin-bottom: 32px; }
 
-  /* ════════════════════════════════
-     ABOUT
-  ════════════════════════════════ */
-  .about { background: var(--white); }
-  .about__inner {
-    display: grid;
-    grid-template-columns: 320px 1fr;
-    gap: 60px;
-    align-items: start;
-  }
-  .about__photo {
-    width: 320px;
-    height: 400px;
-    background: var(--primary-light);
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--primary);
-    font-size: 15px;
-    font-weight: 600;
-    border: 2px dashed #A8CFC0;
-    flex-shrink: 0;
-  }
-  .about__headline {
-    font-size: clamp(22px, 3vw, 30px);
-    font-weight: 700;
-    margin-bottom: 16px;
-  }
-  .about__intro { font-size: 16px; color: var(--text-muted); margin-bottom: 32px; line-height: 1.7; }
-  .about__diffs { display: flex; flex-direction: column; gap: 20px; margin-bottom: 32px; }
-  .about__diff {
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-  }
-  .about__diff-icon {
-    font-size: 24px;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-  .about__diff-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-  .about__diff-text { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+    .about__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 32px; }
+    .about__stat { background: var(--primary-light); border-radius: var(--radius-m); padding: 18px 14px; text-align: center; }
+    .about__stat-num { font-family: var(--font-serif); font-size: 30px; font-weight: 700; color: var(--primary); display: block; line-height: 1; margin-bottom: 4px; }
+    .about__stat-lbl { font-size: 12px; color: var(--text-muted); line-height: 1.3; }
 
-  .about__creds {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .about__cred {
-    background: var(--primary-light);
-    color: var(--primary);
-    font-size: 13px;
-    font-weight: 600;
-    padding: 6px 14px;
-    border-radius: 20px;
-  }
+    .about__creds { display: flex; flex-direction: column; gap: 10px; }
+    .about__cred { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--text-muted); }
+    .about__dot {
+      width: 22px; height: 22px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    .about__dot svg { width: 11px; height: 11px; fill: none; stroke: white; stroke-width: 2.5; }
 
-  @media (max-width: 900px) {
-    .about__inner { grid-template-columns: 1fr; }
-    .about__photo { width: 100%; max-width: 320px; height: 280px; }
-  }
+    /* =========================================================
+       STEPS
+    ========================================================= */
+    .steps__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      position: relative;
+    }
+    .steps__line {
+      position: absolute;
+      top: 44px;
+      left: calc(12.5% + 8px);
+      right: calc(12.5% + 8px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      z-index: 0;
+    }
+    .step {
+      background: var(--white);
+      border-radius: var(--radius-m);
+      padding: 32px 22px 28px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      transition: all var(--t);
+      position: relative;
+      z-index: 1;
+    }
+    .step:hover { transform: translateY(-7px); box-shadow: var(--shadow-md); }
+    .step__num {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-family: var(--font-serif);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      border: 4px solid var(--bg);
+      box-shadow: 0 0 0 2px var(--primary);
+      position: relative;
+      z-index: 2;
+    }
+    .step:last-child .step__num { background: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+    .step h3 { font-family: var(--font-serif); font-size: 18px; font-weight: 600; margin-bottom: 8px; line-height: 1.3; }
+    .step p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+    .step__tag {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 50px;
+      margin-top: 12px;
+    }
 
-  /* ════════════════════════════════
-     HOW I WORK
-  ════════════════════════════════ */
-  .how { background: var(--bg); }
-  .how__steps {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    position: relative;
-  }
-  .how__steps::before {
-    content: '';
-    position: absolute;
-    top: 28px;
-    left: calc(12.5% + 0px);
-    right: calc(12.5% + 0px);
-    height: 2px;
-    background: #C5DDD5;
-    z-index: 0;
-  }
-  .how__step {
-    text-align: center;
-    padding: 0 16px;
-    position: relative;
-    z-index: 1;
-  }
-  .how__step-num {
-    width: 56px;
-    height: 56px;
-    background: var(--primary);
-    color: var(--white);
-    border-radius: 50%;
-    font-size: 20px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-  }
-  .how__step-title { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
-  .how__step-text { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+    /* =========================================================
+       PROGRAMS / TARIFFS
+    ========================================================= */
+    .programs__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; align-items: start; }
 
-  @media (max-width: 768px) {
-    .how__steps { grid-template-columns: 1fr; gap: 32px; }
-    .how__steps::before { display: none; }
-    .how__step { text-align: left; display: flex; gap: 16px; align-items: flex-start; }
-    .how__step-num { flex-shrink: 0; margin: 0; }
-    .how__step-body {}
-  }
+    .tariff {
+      background: var(--white);
+      border-radius: var(--radius-l);
+      padding: 40px 32px;
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--border);
+      transition: all var(--t);
+      position: relative;
+    }
+    .tariff:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+    .tariff--pop { border-color: var(--primary); box-shadow: var(--shadow-green); transform: scale(1.04); }
+    .tariff--pop:hover { transform: scale(1.04) translateY(-8px); }
 
-  /* ════════════════════════════════
-     TESTIMONIALS
-  ════════════════════════════════ */
-  .reviews { background: var(--white); }
-  .reviews__cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-bottom: 40px;
-  }
-  .review__card {
-    background: var(--bg);
-    border-radius: var(--radius-card);
-    padding: 24px;
-    border: 1px solid #E8E8E4;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .review__top { display: flex; align-items: center; gap: 14px; }
-  .review__avatar {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: var(--primary);
-    color: var(--white);
-    font-size: 16px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .review__name { font-weight: 700; font-size: 15px; }
-  .review__badge {
-    background: #E8F5E4;
-    color: #2D6B3C;
-    font-size: 12px;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 20px;
-    display: inline-block;
-    margin-top: 2px;
-  }
-  .review__text { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+    .tariff__popular {
+      position: absolute;
+      top: -15px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 22px;
+      border-radius: 50px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .tariff__name { font-family: var(--font-serif); font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+    .tariff__desc { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+    .tariff__price-row { display: flex; align-items: baseline; gap: 4px; margin-bottom: 4px; }
+    .tariff__amount { font-family: var(--font-serif); font-size: 52px; font-weight: 700; color: var(--primary); line-height: 1; }
+    .tariff--pop .tariff__amount { color: var(--accent); }
+    .tariff__cur { font-size: 26px; font-weight: 700; color: var(--primary); align-self: flex-start; margin-top: 6px; }
+    .tariff--pop .tariff__cur { color: var(--accent); }
+    .tariff__dur { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+    .tariff__line { height: 1px; background: var(--border); margin-bottom: 22px; }
+    .tariff__feats { display: flex; flex-direction: column; gap: 11px; margin-bottom: 30px; }
+    .tariff__feat { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+    .tariff__chk {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .tariff--pop .tariff__chk { background: var(--primary); }
+    .tariff__chk svg { width: 10px; height: 10px; fill: none; stroke-width: 2.5; stroke: var(--primary); }
+    .tariff--pop .tariff__chk svg { stroke: var(--white); }
 
-  .reviews__stats {
-    display: flex;
-    gap: 40px;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 28px;
-    background: var(--primary-light);
-    border-radius: var(--radius-card);
-  }
-  .reviews__stat { text-align: center; }
-  .reviews__stat-num { font-size: 28px; font-weight: 800; color: var(--primary); }
-  .reviews__stat-label { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+    /* =========================================================
+       REVIEWS
+    ========================================================= */
+    .reviews__top { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 60px; }
+    .reviews__stat {
+      text-align: center;
+      padding: 32px 20px;
+      background: var(--white);
+      border-radius: var(--radius-m);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+    .reviews__stat-num { font-family: var(--font-serif); font-size: 50px; font-weight: 700; color: var(--primary); display: block; line-height: 1; margin-bottom: 6px; }
+    .reviews__stat-lbl { font-size: 14px; color: var(--text-muted); }
 
-  @media (max-width: 900px) {
-    .reviews__cards { grid-template-columns: 1fr; }
-  }
+    .reviews__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .review {
+      background: var(--white);
+      border-radius: var(--radius-m);
+      padding: 36px 30px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      transition: all var(--t);
+      display: flex;
+      flex-direction: column;
+    }
+    .review:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+    .review__quote { font-family: var(--font-serif); font-size: 80px; color: var(--primary-light); line-height: 0.7; display: block; margin-bottom: 12px; user-select: none; }
+    .review__text { font-size: 16px; line-height: 1.75; color: var(--text-muted); margin-bottom: 22px; flex: 1; }
+    .review__result {
+      background: var(--primary-light);
+      border-radius: var(--radius-s);
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .review__author { display: flex; align-items: center; gap: 12px; }
+    .review__avatar {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .av-1 { background: linear-gradient(135deg, #2D5F4E, #4a9478); }
+    .av-2 { background: linear-gradient(135deg, #C4805A, #d4956e); }
+    .av-3 { background: linear-gradient(135deg, #6B5B8C, #9480b8); }
+    .review__name { font-weight: 700; font-size: 15px; line-height: 1.2; }
+    .review__age { font-size: 13px; color: var(--text-muted); }
+    .review__stars { color: #f5a623; font-size: 13px; margin-top: 2px; }
 
-  /* ════════════════════════════════
-     PROGRAM
-  ════════════════════════════════ */
-  .program { background: var(--primary-light); }
-  .program__inner {
-    display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: 48px;
-    align-items: start;
-  }
-  .program__checklist {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin-top: 16px;
-  }
-  .program__checklist li {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    font-size: 16px;
-  }
-  .program__check {
-    color: var(--primary);
-    font-size: 18px;
-    font-weight: 700;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-  .program__price-card {
-    background: var(--white);
-    border-radius: var(--radius-card);
-    padding: 32px 28px;
-    border: 2px solid var(--accent);
-  }
-  .program__price-label { font-size: 14px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
-  .program__price {
-    font-size: 36px;
-    font-weight: 800;
-    color: var(--text);
-    margin-bottom: 6px;
-  }
-  .program__price-small { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
-  .program__price-card .btn { width: 100%; justify-content: center; margin-bottom: 12px; }
-  .program__secondary {
-    text-align: center;
-    font-size: 14px;
-    color: var(--primary);
-    font-weight: 600;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    display: block;
-    cursor: pointer;
-    margin-bottom: 20px;
-  }
-  .program__guarantee {
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    padding-top: 16px;
-    border-top: 1px solid #E8E8E4;
-  }
+    /* =========================================================
+       FAQ
+    ========================================================= */
+    .faq__list { max-width: 780px; margin: 0 auto; }
+    .faq__item { border-bottom: 1px solid var(--border); }
+    .faq__item:first-child { border-top: 1px solid var(--border); }
+    .faq__q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 24px 0;
+      cursor: pointer;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      transition: color var(--t);
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-family: var(--font-sans);
+      line-height: 1.4;
+    }
+    .faq__q:hover { color: var(--primary); }
+    .faq__q.open { color: var(--primary); }
+    .faq__icon {
+      width: 34px; height: 34px;
+      background: var(--primary-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--primary);
+      font-size: 22px;
+      font-weight: 300;
+      line-height: 1;
+      transition: all var(--t);
+    }
+    .faq__q.open .faq__icon { background: var(--primary); color: var(--white); transform: rotate(45deg); }
+    .faq__a { overflow: hidden; max-height: 0; transition: max-height 0.45s ease; }
+    .faq__a.open { max-height: 320px; }
+    .faq__a-inner { padding: 0 40px 26px 0; font-size: 16px; color: var(--text-muted); line-height: 1.8; }
 
-  @media (max-width: 900px) {
-    .program__inner { grid-template-columns: 1fr; }
-  }
+    /* =========================================================
+       CONTACT
+    ========================================================= */
+    .contact {
+      background: linear-gradient(140deg, var(--primary-dark) 0%, var(--primary) 100%);
+      padding: 100px 0;
+    }
+    .contact__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 88px; align-items: center; }
 
-  /* ════════════════════════════════
-     FAQ
-  ════════════════════════════════ */
-  .faq { background: var(--white); }
-  .faq__list {
-    max-width: 760px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    border: 1px solid #E8E8E4;
-    border-radius: var(--radius-card);
-    overflow: hidden;
-  }
-  .faq__list details {
-    border-bottom: 1px solid #E8E8E4;
-  }
-  .faq__list details:last-child { border-bottom: none; }
-  .faq__list summary {
-    padding: 20px 24px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    user-select: none;
-    background: var(--white);
-    transition: background .15s;
-  }
-  .faq__list summary:hover { background: var(--bg); }
-  .faq__list summary::-webkit-details-marker { display: none; }
-  .faq__list summary::after {
-    content: '+';
-    font-size: 22px;
-    color: var(--primary);
-    font-weight: 400;
-    flex-shrink: 0;
-    margin-left: 16px;
-  }
-  .faq__list details[open] summary::after { content: '−'; }
-  .faq__answer {
-    padding: 0 24px 20px;
-    font-size: 15px;
-    color: var(--text-muted);
-    line-height: 1.7;
-    background: var(--white);
-  }
+    .contact__title { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 46px); font-weight: 700; line-height: 1.2; color: var(--white); margin-bottom: 18px; }
+    .contact__sub { font-size: 17px; color: rgba(255,255,255,0.72); line-height: 1.75; margin-bottom: 36px; }
+    .contact__info { display: flex; flex-direction: column; gap: 16px; }
+    .contact__item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 16px;
+      color: rgba(255,255,255,0.85);
+      transition: color var(--t);
+    }
+    a.contact__item:hover { color: var(--white); }
+    .contact__ico {
+      width: 42px; height: 42px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
 
-  /* ════════════════════════════════
-     CONTACT
-  ════════════════════════════════ */
-  .contact { background: var(--primary); }
-  .contact__title {
-    font-size: clamp(24px, 3.5vw, 38px);
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 10px;
-  }
-  .contact__sub {
-    font-size: 18px;
-    color: rgba(255,255,255,.75);
-    margin-bottom: 48px;
-  }
-  .contact__inner {
-    display: grid;
-    grid-template-columns: 1fr 400px;
-    gap: 64px;
-    align-items: start;
-  }
-  .contact__form-card {
-    background: var(--white);
-    border-radius: var(--radius-card);
-    padding: 32px;
-  }
-  .contact__form { display: flex; flex-direction: column; gap: 14px; }
-  .contact__input,
-  .contact__select,
-  .contact__textarea {
-    padding: 14px 16px;
-    border: 1.5px solid #E0E0E0;
-    border-radius: var(--radius-btn);
-    font-size: 15px;
-    font-family: inherit;
-    background: var(--bg);
-    outline: none;
-    transition: border-color .2s;
-    width: 100%;
-  }
-  .contact__input:focus,
-  .contact__select:focus,
-  .contact__textarea:focus { border-color: var(--primary); background: var(--white); }
-  .contact__textarea { resize: vertical; min-height: 96px; }
-  .contact__btn-note {
-    text-align: center;
-    font-size: 13px;
-    color: var(--text-muted);
-    margin-top: 4px;
-  }
-  .contact__form .btn { width: 100%; justify-content: center; }
-  .contact__thanks { display: none; text-align: center; padding: 24px 0; }
-  .contact__thanks.visible { display: block; }
-  .contact__thanks-text {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--primary);
-    line-height: 1.6;
-  }
+    .contact__form-box {
+      background: var(--white);
+      border-radius: var(--radius-l);
+      padding: 48px 44px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.25);
+    }
+    .contact__form-title { font-family: var(--font-serif); font-size: 24px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .contact__form-sub { font-size: 15px; color: var(--text-muted); margin-bottom: 28px; }
+    .form-group { margin-bottom: 14px; }
+    .form-input {
+      width: 100%;
+      padding: 16px 20px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-s);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      color: var(--text);
+      background: var(--bg);
+      transition: all var(--t);
+    }
+    .form-input:focus { outline: none; border-color: var(--primary); background: var(--white); }
+    .form-input::placeholder { color: #bbb; }
+    .form__privacy { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 14px; line-height: 1.5; }
 
-  .contact__info { padding-top: 8px; }
-  .contact__info-head {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 24px;
-  }
-  .contact__links {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    margin-bottom: 36px;
-  }
-  .contact__link {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: rgba(255,255,255,.9);
-    font-size: 16px;
-  }
-  .contact__link-icon {
-    width: 40px;
-    height: 40px;
-    background: rgba(255,255,255,.15);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    flex-shrink: 0;
-  }
+    .form__success { display: none; text-align: center; padding: 32px 0; }
+    .form__success.active { display: block; animation: fadeIn 0.4s ease; }
+    .form__success-icon { font-size: 56px; margin-bottom: 12px; }
+    .form__success h3 { font-family: var(--font-serif); font-size: 22px; margin-bottom: 8px; color: var(--text); }
+    .form__success p { color: var(--text-muted); font-size: 15px; }
 
-  @media (max-width: 900px) {
-    .contact__inner { grid-template-columns: 1fr; }
-    .contact__info { order: -1; }
-  }
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+    .footer { background: var(--primary-dark); color: rgba(255,255,255,0.65); padding: 44px 0; }
+    .footer__inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .footer__logo { font-family: var(--font-serif); font-size: 18px; color: var(--white); font-weight: 600; }
+    .footer__links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer__links a { font-size: 14px; color: rgba(255,255,255,0.55); transition: color var(--t); }
+    .footer__links a:hover { color: var(--white); }
+    .footer__copy { font-size: 13px; }
 
-  /* ════════════════════════════════
-     FOOTER
-  ════════════════════════════════ */
-  .footer {
-    background: #1C1C1C;
-    color: rgba(255,255,255,.7);
-    padding: 48px 0 0;
-  }
-  .footer__grid {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr;
-    gap: 40px;
-    padding-bottom: 40px;
-  }
-  .footer__brand-name {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 4px;
-  }
-  .footer__brand-spec {
-    font-size: 13px;
-    color: rgba(255,255,255,.5);
-    margin-bottom: 12px;
-  }
-  .footer__tagline {
-    font-size: 14px;
-    line-height: 1.6;
-    color: rgba(255,255,255,.6);
-  }
-  .footer__col-title {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 16px;
-    text-transform: uppercase;
-    letter-spacing: .06em;
-  }
-  .footer__nav-links {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .footer__nav-links a {
-    font-size: 14px;
-    color: rgba(255,255,255,.6);
-    transition: color .2s;
-  }
-  .footer__nav-links a:hover { color: var(--white); }
-  .footer__contact-items {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .footer__contact-item {
-    font-size: 14px;
-    color: rgba(255,255,255,.6);
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-  .footer__bottom {
-    border-top: 1px solid rgba(255,255,255,.1);
-    padding: 16px 0;
-    text-align: center;
-    font-size: 12px;
-    color: rgba(255,255,255,.4);
-  }
+    /* =========================================================
+       TELEGRAM STICKY
+    ========================================================= */
+    .tg-sticky {
+      position: fixed;
+      bottom: 30px; right: 30px;
+      z-index: 980;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #2AABEE;
+      color: var(--white);
+      padding: 14px 24px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: 0 6px 28px rgba(42,171,238,0.50);
+      transition: all var(--t);
+      text-decoration: none;
+    }
+    .tg-sticky:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 10px 36px rgba(42,171,238,0.65); }
+    .tg-sticky svg { width: 22px; height: 22px; fill: var(--white); flex-shrink: 0; }
 
-  @media (max-width: 768px) {
-    .footer__grid { grid-template-columns: 1fr; gap: 32px; }
-  }
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+    @media (max-width: 1024px) {
+      .steps__grid { grid-template-columns: repeat(2, 1fr); }
+      .steps__line { display: none; }
+    }
+    @media (max-width: 900px) {
+      .hero__inner { grid-template-columns: 1fr; text-align: center; }
+      .hero__sub { margin-left: auto; margin-right: auto; }
+      .hero__stats { justify-content: center; }
+      .hero__cta-group { justify-content: center; }
+      .hero__photo-wrap { order: -1; }
+      .hero__float { display: none; }
+      .about__grid { grid-template-columns: 1fr; }
+      .about__photo-col { max-width: 380px; margin: 0 auto; }
+      .about__badge-float { display: none; }
+      .programs__grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+      .tariff--pop { transform: none; }
+      .tariff--pop:hover { transform: translateY(-8px); }
+      .reviews__top { grid-template-columns: repeat(3, 1fr); }
+      .reviews__grid { grid-template-columns: 1fr; }
+      .contact__inner { grid-template-columns: 1fr; gap: 48px; }
+      .pain__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .section { padding: 68px 0; }
+      .header__nav, .header__cta { display: none; }
+      .hamburger { display: flex; }
+      .pain__grid { grid-template-columns: 1fr; }
+      .steps__grid { grid-template-columns: 1fr 1fr; }
+      .hero__frame { width: 220px; height: 220px; }
+      .hero__ring { width: 280px; height: 280px; }
+      .hero__glow { width: 220px; height: 220px; }
+      .ph-big { font-size: 60px; }
+      .footer__inner { flex-direction: column; text-align: center; }
+      .contact__form-box { padding: 32px 24px; }
+      .tg-sticky { bottom: 20px; right: 16px; padding: 12px 18px; font-size: 14px; }
+    }
+    @media (max-width: 560px) {
+      .hero { padding: 100px 0 64px; }
+      .hero__cta-group { flex-direction: column; }
+      .hero__cta-group .btn { width: 100%; }
+      .hero__divider { display: none; }
+      .pain__footer { padding: 36px 24px; }
+      .steps__grid { grid-template-columns: 1fr; }
+      .about__stats { grid-template-columns: 1fr 1fr; }
+      .reviews__top { grid-template-columns: 1fr; }
+      .tariff { padding: 32px 24px; }
+    }
+  
+    /* ===== WOW EFFECTS ===== */
+    @keyframes gradientFlow {
+      0%,100% { background-position: 0% 50%; }
+      50%      { background-position: 100% 50%; }
+    }
+    .hero__h1 em {
+      background: linear-gradient(135deg,#e8a87c,#f7d4aa,#C4805A,#ffd4a8,#e8a87c);
+      background-size: 300% 300%;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+      animation: gradientFlow 3s ease infinite;
+    }
+    .section__title { display: inline-block; }
+    .section__title::after {
+      content:""; display:block; height:3px; width:0;
+      background: linear-gradient(90deg,var(--primary),var(--accent));
+      border-radius:2px; margin:10px auto 0;
+      transition: width 0.8s ease 0.2s;
+    }
+    .section__title.line-visible::after { width:80px; }
+    .section--dark .section__title::after {
+      background: linear-gradient(90deg,#e8a87c,rgba(255,255,255,.5));
+    }
+    .btn { position:relative; overflow:hidden; }
+    .btn::before {
+      content:""; position:absolute; top:0; left:-100%;
+      width:55%; height:100%;
+      background: linear-gradient(120deg,transparent,rgba(255,255,255,.28),transparent);
+      transition: left 0.55s ease; pointer-events:none;
+    }
+    .btn:hover::before { left:160%; }
+    .pain__card,.review,.step { will-change:transform; }
+    #cursorSpot {
+      position:fixed; width:360px; height:360px; border-radius:50%;
+      background: radial-gradient(circle,rgba(45,95,78,.07) 0%,transparent 68%);
+      pointer-events:none; transform:translate(-50%,-50%);
+      z-index:9998; transition:opacity 0.4s; opacity:0;
+    }
+    @keyframes floatUp { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    .hero__float        { animation: floatUp 4s ease infinite; }
+    .about__badge-float { animation: floatUp 5s ease 1s infinite; }
+    @keyframes badgePulse {
+      0%,100% { box-shadow:0 0 0 0   rgba(196,128,90,.4); }
+      50%      { box-shadow:0 0 0 10px rgba(196,128,90,0); }
+    }
+    .hero__badge { animation: badgePulse 2.5s ease infinite; }
+    @keyframes glowPulse {
+      0%,100% { transform:scale(1);    opacity:.9; }
+      50%      { transform:scale(1.12); opacity:.4; }
+    }
+    .hero__glow { animation: glowPulse 4s ease infinite; }
+    @keyframes borderGlow {
+      0%,100% { box-shadow:var(--shadow-green),0 0 0  0px rgba(45,95,78,.35); }
+      50%      { box-shadow:var(--shadow-green),0 0 0 10px rgba(45,95,78,0);   }
+    }
+    .tariff--pop { animation: borderGlow 3s ease infinite; }
+    .tariff--pop:hover { animation:none; }
+    @keyframes tgAttention {
+      0%,90%,100% { transform:translateY(0); }
+      92% { transform:translateY(-8px); }
+      96% { transform:translateY(-4px); }
+      98% { transform:translateY(-6px); }
+    }
+    .tg-sticky { animation: tgAttention 5s ease 4s infinite; }
+    .tg-sticky:hover { animation:none; transform:translateY(-3px) scale(1.03); }
+    @keyframes quoteFloat {
+      0%,100% { transform:translateY(0); }
+      50%      { transform:translateY(-5px); }
+    }
+    .review__quote { animation: quoteFloat 4s ease infinite; display:inline-block; }
+    .fade-left  { opacity:0; transform:translateX(-44px); transition:opacity .8s ease,transform .8s ease; }
+    .fade-right { opacity:0; transform:translateX( 44px); transition:opacity .8s ease,transform .8s ease; }
+    .fade-left.visible,.fade-right.visible { opacity:1; transform:none; }
+    .about__photo-box {
+      transition:transform .45s ease,box-shadow .45s ease; cursor:default;
+    }
+    .about__photo-box:hover {
+      transform:scale(1.025) translateY(-4px); box-shadow:var(--shadow-lg);
+    }
+    #scrollProgress {
+      position:fixed; top:0; left:0; height:3px;
+      background: linear-gradient(90deg,var(--primary),var(--accent));
+      z-index:10000; width:0%; transition:width .08s linear;
+    }
 
-  /* ════════════════════════════════
-     UTILS
-  ════════════════════════════════ */
-  .text-center { text-align: center; }
-
-</style>
+  </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════
-     NAV
-══════════════════════════════════════ -->
-<nav class="nav">
-  <div class="container">
-    <div class="nav__inner">
-      <a href="#" class="nav__logo">
-        <div class="nav__logo-name">Д-р Русова Елена</div>
-        <div class="nav__logo-sub">Интегративная медицина</div>
-      </a>
-      <ul class="nav__links">
-        <li><a href="#about">О враче</a></li>
-        <li><a href="#how">Как работаю</a></li>
-        <li><a href="#program">Программа</a></li>
-        <li><a href="#contact" class="nav-cta">Записаться</a></li>
-      </ul>
-      <button class="nav__burger" onclick="openMenu()" aria-label="Меню">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+<!-- ======================================================== -->
+<!-- HEADER                                                   -->
+<!-- ======================================================== -->
+<header class="header" id="header">
+  <div class="container header__inner">
+    <a href="#home" class="header__logo">Елена Русова</a>
+    <nav class="header__nav">
+      <a href="#pain">Симптомы</a>
+      <a href="#quiz">Тест</a>
+      <a href="#about">О враче</a>
+      <a href="#programs">Программы</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#contact">Запись</a>
+    </nav>
+    <a href="#contact" class="btn btn--outline header__cta btn--sm">Записаться</a>
+    <button class="hamburger" id="hamburger" aria-label="Меню" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+</header>
+
+<div class="nav-overlay" id="navOverlay"></div>
+<nav class="mobile-nav" id="mobileNav">
+  <a href="#pain"     class="mnav">Симптомы</a>
+  <a href="#quiz"     class="mnav">Тест симптомов</a>
+  <a href="#about"    class="mnav">О враче</a>
+  <a href="#programs" class="mnav">Программы</a>
+  <a href="#reviews"  class="mnav">Отзывы</a>
+  <a href="#contact"  class="mnav">Запись</a>
+  <a href="#contact" class="btn btn--accent">Записаться на консультацию</a>
 </nav>
 
-<!-- Mobile overlay -->
-<div class="nav__overlay" id="navOverlay">
-  <button class="close-btn" onclick="closeMenu()">×</button>
-  <a href="#about" onclick="closeMenu()">О враче</a>
-  <a href="#how" onclick="closeMenu()">Как работаю</a>
-  <a href="#program" onclick="closeMenu()">Программа</a>
-  <a href="#quiz" onclick="closeMenu()">Пройти тест</a>
-  <a href="#contact" onclick="closeMenu()" class="btn btn-primary">Записаться</a>
-</div>
+<!-- ======================================================== -->
+<!-- HERO                                                     -->
+<!-- ======================================================== -->
+<section class="hero" id="home">
+  <div class="container hero__inner">
 
-<main>
-
-<!-- ══════════════════════════════════════
-     HERO
-══════════════════════════════════════ -->
-<section class="hero">
-  <div class="container">
-    <div class="hero__inner">
-      <div class="hero__content">
-        <div class="hero__proof">Более 500 пациентов · 8 лет в интегративной медицине · Онлайн и офлайн в [ГОРОД]</div>
-        <h1 class="hero__h1">Помогаю женщинам 45+ восстановить гормональный&nbsp;баланс и вернуть&nbsp;энергию</h1>
-        <p class="hero__sub">Устала от приливов, бессонницы и перепадов настроения? Найдём причину за 2 консультации</p>
-        <div class="hero__ctas">
-          <a href="#contact" class="btn btn-primary">Записаться на консультацию →</a>
-          <a href="#quiz" class="hero__cta-link">Пройти бесплатный тест →</a>
+    <div class="fade-up">
+      <div class="hero__badge">
+        <span class="hero__dot"></span>
+        Интегративная медицина · Anti-aging · Гинекология
+      </div>
+      <h1 class="hero__h1">
+        Помогаю женщинам 45+<br>вернуть <em>энергию, сон и себя</em>
+      </h1>
+      <p class="hero__sub">
+        Когда обычные врачи говорят «анализы в норме» — я ищу настоящую причину.
+        Гинеколог-эндокринолог, 12 лет практики. Онлайн и в Москве.
+      </p>
+      <div class="hero__stats">
+        <div class="hero__stat">
+          <span class="hero__stat-num" data-count="300">0</span>
+          <span class="hero__stat-label">пациенток</span>
+        </div>
+        <div class="hero__divider"></div>
+        <div class="hero__stat">
+          <span class="hero__stat-num" data-count="12">0</span>
+          <span class="hero__stat-label">лет практики</span>
+        </div>
+        <div class="hero__divider"></div>
+        <div class="hero__stat">
+          <span class="hero__stat-num">4.9</span>
+          <span class="hero__stat-label">★★★★★ рейтинг</span>
         </div>
       </div>
-      <div class="hero__photo">Фото врача</div>
+      <div class="hero__cta-group">
+        <a href="#contact" class="btn btn--accent btn--lg">Записаться на консультацию</a>
+        <a href="#quiz"    class="btn btn--outline btn--lg">Пройти тест симптомов</a>
+      </div>
     </div>
+
+    <div class="hero__photo-wrap fade-up delay-2">
+      <div class="hero__ring"></div>
+      <div class="hero__glow"></div>
+      <div class="hero__frame">
+        <img src="data:image/jpeg;base64,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" alt="Елена Русова" style="width:100%;height:100%;object-fit:cover;border-radius:50%">
+      </div>
+      <div class="hero__float">
+        <span class="hero__float-icon">🏆</span>
+        <div class="hero__float-text">
+          12 лет опыта
+          <span>Интегративная медицина</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- ══════════════════════════════════════
-     PAIN POINTS
-══════════════════════════════════════ -->
-<section class="pain">
+<!-- ======================================================== -->
+<!-- PAIN                                                     -->
+<!-- ======================================================== -->
+<section class="section section--alt" id="pain">
   <div class="container">
-    <div class="title-block">
-      <h2 class="section-title">Узнаёшь себя?</h2>
+    <div class="section__header fade-up">
+      <p class="section__label">Узнаёте себя?</p>
+      <h2 class="section__title">Это не просто возраст — это сигналы тела</h2>
+      <p class="section__sub">6 симптомов, с которыми женщины 45+ приходят ко мне каждый день</p>
     </div>
-    <div class="pain__cards">
-      <div class="pain__card">
-        <div class="pain__icon">🌙</div>
-        <div class="pain__card-title">Просыпаешься в 3 ночи</div>
-        <div class="pain__card-text">Бессонница, ночная потливость, невозможность снова уснуть — и так каждую ночь уже несколько месяцев</div>
-      </div>
-      <div class="pain__card">
+
+    <div class="pain__grid">
+      <div class="pain__card fade-up delay-1">
         <div class="pain__icon">🌡️</div>
-        <div class="pain__card-title">Приливы и перепады настроения</div>
-        <div class="pain__card-text">Внезапный жар, раздражительность, слёзы без причины. Близкие не понимают, ты сама не узнаёшь себя</div>
+        <h3>Приливы и жар</h3>
+        <p>Волны жара, ночная потливость — нарушают сон и работоспособность</p>
       </div>
-      <div class="pain__card">
-        <div class="pain__icon">🔋</div>
-        <div class="pain__card-title">Нет энергии, хотя анализы «в норме»</div>
-        <div class="pain__card-text">Врачи говорят что всё хорошо — а ты чувствуешь что что-то не так. Усталость, туман в голове, лишний вес</div>
+      <div class="pain__card fade-up delay-2">
+        <div class="pain__icon">😴</div>
+        <h3>Бессонница</h3>
+        <p>Не можете заснуть, часто просыпаетесь ночью, утром чувствуете себя разбитой</p>
+      </div>
+      <div class="pain__card fade-up delay-3">
+        <div class="pain__icon">⚡</div>
+        <h3>Усталость без причины</h3>
+        <p>Просыпаетесь уже уставшей. Кофе не помогает. Анализы «в норме»</p>
+      </div>
+      <div class="pain__card fade-up delay-1">
+        <div class="pain__icon">⚖️</div>
+        <h3>Лишний вес</h3>
+        <p>Набираете вес при нормальном питании. Ничего не помогает. Живот растёт</p>
+      </div>
+      <div class="pain__card fade-up delay-2">
+        <div class="pain__icon">🎭</div>
+        <h3>Перепады настроения</h3>
+        <p>Раздражительность, тревога, слёзы без повода. «Это не я, я не понимаю себя»</p>
+      </div>
+      <div class="pain__card fade-up delay-3">
+        <div class="pain__icon">💔</div>
+        <h3>Снижение либидо</h3>
+        <p>Интерес к близости пропал. Сухость, дискомфорт. Это не обсуждают с врачами</p>
       </div>
     </div>
-    <div class="pain__callout">
-      Всё это — не «возрастное» и не «надо просто принять». Это сигналы гормонального дисбаланса, у которого есть конкретные причины и решения.
+
+    <div class="pain__footer fade-up">
+      <p class="pain__footer-txt">Вы не одна. Это не норма. <strong>Это лечится.</strong></p>
+      <a href="#quiz" class="btn btn--primary btn--lg">Пройти тест симптомов →</a>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════
-     QUIZ
-══════════════════════════════════════ -->
-<section class="quiz" id="quiz">
+<!-- ======================================================== -->
+<!-- QUIZ                                                     -->
+<!-- ======================================================== -->
+<section class="section quiz" id="quiz">
   <div class="container">
-    <div class="title-block text-center">
-      <h2 class="section-title">Узнай, какие гормоны у тебя под вопросом</h2>
-      <p class="section-subtitle">Пройди 5-минутный тест — получи персональную карту симптомов и список анализов</p>
+    <div class="section__header fade-up">
+      <p class="section__label">Лид-магнит</p>
+      <h2 class="section__title">Пройдите тест за 2 минуты</h2>
+      <p class="section__sub">Узнайте свой гормональный профиль и получите персональную карту симптомов</p>
     </div>
-    <div class="quiz__wrap">
 
-      <!-- Progress bar -->
-      <div class="quiz__progress" id="quizProgress">
-        <div class="quiz__progress-step active" id="ps1"></div>
-        <div class="quiz__progress-step" id="ps2"></div>
-        <div class="quiz__progress-step" id="ps3"></div>
-        <div class="quiz__progress-step" id="ps4"></div>
-        <div class="quiz__progress-step" id="ps5"></div>
+    <div class="quiz__wrap fade-up delay-1">
+      <div class="quiz__progress">
+        <div class="quiz__bar"><div class="quiz__fill" id="quizFill"></div></div>
+        <span class="quiz__pct" id="quizPct">1 из 5</span>
       </div>
 
       <!-- Q1 -->
-      <div class="quiz__question visible" id="q1">
-        <div class="quiz__step-label">Вопрос 1 из 5</div>
-        <div class="quiz__q-title">Как вы оцениваете свой уровень энергии?</div>
-        <div class="quiz__options">
-          <label class="quiz__option"><input type="radio" name="q1" value="a"> Хорошая энергия весь день</label>
-          <label class="quiz__option"><input type="radio" name="q1" value="b"> Устаю к середине дня</label>
-          <label class="quiz__option"><input type="radio" name="q1" value="c"> Постоянная усталость</label>
-          <label class="quiz__option"><input type="radio" name="q1" value="d"> Энергия скачет непредсказуемо</label>
+      <div class="quiz__step active" data-step="0">
+        <p class="quiz__q">Как часто у вас бывают приливы жара или ночная потливость?</p>
+        <p class="quiz__hint">Выберите один ответ</p>
+        <div class="quiz__opts">
+          <button class="quiz__opt" data-v="1"><span class="quiz__letter">А</span>Никогда или крайне редко</button>
+          <button class="quiz__opt" data-v="2"><span class="quiz__letter">Б</span>Иногда, 1–2 раза в неделю</button>
+          <button class="quiz__opt" data-v="3"><span class="quiz__letter">В</span>Часто, почти каждый день</button>
+          <button class="quiz__opt" data-v="4"><span class="quiz__letter">Г</span>Несколько раз в день — сильно мешает</button>
         </div>
         <div class="quiz__nav">
-          <button class="btn btn-primary" onclick="goToStep(2)">Далее →</button>
+          <span></span>
+          <button class="btn btn--primary btn--sm" onclick="qNext()">Далее →</button>
         </div>
       </div>
 
       <!-- Q2 -->
-      <div class="quiz__question" id="q2">
-        <div class="quiz__step-label">Вопрос 2 из 5</div>
-        <div class="quiz__q-title">Как вы спите?</div>
-        <div class="quiz__options">
-          <label class="quiz__option"><input type="radio" name="q2" value="a"> Сплю отлично 7–8 часов</label>
-          <label class="quiz__option"><input type="radio" name="q2" value="b"> Засыпаю с трудом</label>
-          <label class="quiz__option"><input type="radio" name="q2" value="c"> Просыпаюсь ночью (1–3 ночи)</label>
-          <label class="quiz__option"><input type="radio" name="q2" value="d"> Сплю много, но не высыпаюсь</label>
+      <div class="quiz__step" data-step="1">
+        <p class="quiz__q">Как вы спите?</p>
+        <p class="quiz__hint">Выберите один ответ</p>
+        <div class="quiz__opts">
+          <button class="quiz__opt" data-v="1"><span class="quiz__letter">А</span>Хорошо, сплю без проблем</button>
+          <button class="quiz__opt" data-v="2"><span class="quiz__letter">Б</span>Иногда трудно засыпаю</button>
+          <button class="quiz__opt" data-v="3"><span class="quiz__letter">В</span>Часто просыпаюсь ночью</button>
+          <button class="quiz__opt" data-v="4"><span class="quiz__letter">Г</span>Почти не сплю, утром разбита</button>
         </div>
         <div class="quiz__nav">
-          <button class="btn btn-outline btn-sm" onclick="goToStep(1)">← Назад</button>
-          <button class="btn btn-primary" onclick="goToStep(3)">Далее →</button>
+          <button class="btn btn--outline-green btn--sm" onclick="qPrev()">← Назад</button>
+          <button class="btn btn--primary btn--sm" onclick="qNext()">Далее →</button>
         </div>
       </div>
 
       <!-- Q3 -->
-      <div class="quiz__question" id="q3">
-        <div class="quiz__step-label">Вопрос 3 из 5</div>
-        <div class="quiz__q-title">Есть ли приливы или потливость?</div>
-        <div class="quiz__options">
-          <label class="quiz__option"><input type="radio" name="q3" value="a"> Нет совсем</label>
-          <label class="quiz__option"><input type="radio" name="q3" value="b"> Редко, не мешают</label>
-          <label class="quiz__option"><input type="radio" name="q3" value="c"> Регулярно, неприятно</label>
-          <label class="quiz__option"><input type="radio" name="q3" value="d"> Часто, сильно мешают жизни</label>
+      <div class="quiz__step" data-step="2">
+        <p class="quiz__q">Как бы вы оценили свою энергию в течение дня?</p>
+        <p class="quiz__hint">Выберите один ответ</p>
+        <div class="quiz__opts">
+          <button class="quiz__opt" data-v="1"><span class="quiz__letter">А</span>Энергичная весь день</button>
+          <button class="quiz__opt" data-v="2"><span class="quiz__letter">Б</span>Устаю к вечеру — это нормально</button>
+          <button class="quiz__opt" data-v="3"><span class="quiz__letter">В</span>Устаю уже к обеду</button>
+          <button class="quiz__opt" data-v="4"><span class="quiz__letter">Г</span>Просыпаюсь уже уставшей, сил нет</button>
         </div>
         <div class="quiz__nav">
-          <button class="btn btn-outline btn-sm" onclick="goToStep(2)">← Назад</button>
-          <button class="btn btn-primary" onclick="goToStep(4)">Далее →</button>
+          <button class="btn btn--outline-green btn--sm" onclick="qPrev()">← Назад</button>
+          <button class="btn btn--primary btn--sm" onclick="qNext()">Далее →</button>
         </div>
       </div>
 
       <!-- Q4 -->
-      <div class="quiz__question" id="q4">
-        <div class="quiz__step-label">Вопрос 4 из 5</div>
-        <div class="quiz__q-title">Как вы переносите стресс?</div>
-        <div class="quiz__options">
-          <label class="quiz__option"><input type="radio" name="q4" value="a"> Спокойно справляюсь</label>
-          <label class="quiz__option"><input type="radio" name="q4" value="b"> Тревожусь, но держусь</label>
-          <label class="quiz__option"><input type="radio" name="q4" value="c"> Частые перепады настроения</label>
-          <label class="quiz__option"><input type="radio" name="q4" value="d"> Постоянная раздражительность или тревога</label>
+      <div class="quiz__step" data-step="3">
+        <p class="quiz__q">Замечаете изменения в весе в последний год?</p>
+        <p class="quiz__hint">Выберите один ответ</p>
+        <div class="quiz__opts">
+          <button class="quiz__opt" data-v="1"><span class="quiz__letter">А</span>Вес стабильный</button>
+          <button class="quiz__opt" data-v="2"><span class="quiz__letter">Б</span>Небольшие колебания — контролирую</button>
+          <button class="quiz__opt" data-v="3"><span class="quiz__letter">В</span>Набираю вес, хотя питание не менялось</button>
+          <button class="quiz__opt" data-v="4"><span class="quiz__letter">Г</span>Значительно прибавила, ничего не помогает</button>
         </div>
         <div class="quiz__nav">
-          <button class="btn btn-outline btn-sm" onclick="goToStep(3)">← Назад</button>
-          <button class="btn btn-primary" onclick="goToStep(5)">Далее →</button>
+          <button class="btn btn--outline-green btn--sm" onclick="qPrev()">← Назад</button>
+          <button class="btn btn--primary btn--sm" onclick="qNext()">Далее →</button>
         </div>
       </div>
 
       <!-- Q5 -->
-      <div class="quiz__question" id="q5">
-        <div class="quiz__step-label">Вопрос 5 из 5</div>
-        <div class="quiz__q-title">Что вас беспокоит больше всего?</div>
-        <div class="quiz__options">
-          <label class="quiz__option"><input type="radio" name="q5" value="a"> Лишний вес несмотря на диету</label>
-          <label class="quiz__option"><input type="radio" name="q5" value="b"> Снижение либидо</label>
-          <label class="quiz__option"><input type="radio" name="q5" value="c"> Выпадение волос и сухость кожи</label>
-          <label class="quiz__option"><input type="radio" name="q5" value="d"> Туман в голове, забывчивость</label>
+      <div class="quiz__step" data-step="4">
+        <p class="quiz__q">Как ваше эмоциональное состояние в последние 3 месяца?</p>
+        <p class="quiz__hint">Выберите один ответ</p>
+        <div class="quiz__opts">
+          <button class="quiz__opt" data-v="1"><span class="quiz__letter">А</span>Стабильное, хорошо себя чувствую</button>
+          <button class="quiz__opt" data-v="2"><span class="quiz__letter">Б</span>Иногда раздражаюсь больше обычного</button>
+          <button class="quiz__opt" data-v="3"><span class="quiz__letter">В</span>Частые перепады, тревожность</button>
+          <button class="quiz__opt" data-v="4"><span class="quiz__letter">Г</span>Раздражение, тревога или апатия почти постоянно</button>
         </div>
         <div class="quiz__nav">
-          <button class="btn btn-outline btn-sm" onclick="goToStep(4)">← Назад</button>
-          <button class="btn btn-primary" onclick="goToLead()">Получить результат →</button>
+          <button class="btn btn--outline-green btn--sm" onclick="qPrev()">← Назад</button>
+          <button class="btn btn--accent btn--sm" onclick="qFinish()">Узнать результат →</button>
         </div>
       </div>
 
-      <!-- Lead capture -->
-      <div class="quiz__lead" id="quizLead">
-        <div class="quiz__lead-title">Ваш результат готов! Куда отправить карту симптомов?</div>
-        <div class="quiz__lead-sub">Укажите имя и контакт — я пришлю персональную карту и список анализов</div>
-        <form class="quiz__form" onsubmit="submitQuiz(event)">
-          <input class="quiz__input" type="text" id="quizName" placeholder="Ваше имя" required>
-          <input class="quiz__input" type="tel" id="quizContact" placeholder="Телефон или Telegram" required>
-          <label class="quiz__checkbox">
-            <input type="checkbox" id="quizFreeConsult">
-            <span>Хочу бесплатную консультацию по результатам теста</span>
-          </label>
-          <button type="submit" class="btn btn-primary">Получить результат →</button>
-        </form>
+      <!-- Result -->
+      <div class="quiz__result" id="qResult">
+        <div class="quiz__result-icon"  id="qIcon">🔬</div>
+        <h3 class="quiz__result-title"  id="qTitle"></h3>
+        <p  class="quiz__result-sub"    id="qSub"></p>
+        <div class="quiz__form-row">
+          <input type="text" class="quiz__input" id="qName"  placeholder="Ваше имя">
+          <input type="tel"  class="quiz__input" id="qPhone" placeholder="Telegram или телефон">
+        </div>
+        <button class="btn btn--accent btn--full" onclick="qSubmit()">Получить мою карту симптомов</button>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:14px;text-align:center">
+          Нажимая кнопку, вы соглашаетесь на обработку персональных данных
+        </p>
       </div>
 
-      <!-- Quiz result -->
-      <div class="quiz__result" id="quizResult">
-        <div class="quiz__result-text" id="quizResultText"></div>
-        <a href="#contact" class="btn btn-primary">Записаться на полную консультацию →</a>
+      <!-- Success -->
+      <div class="quiz__success" id="qSuccess">
+        <div class="quiz__success-icon">✅</div>
+        <h3>Карта симптомов отправлена!</h3>
+        <p>Елена свяжется с вами в Telegram в течение 2 часов.</p>
+        <a href="#contact" class="btn btn--primary" style="margin-top:24px">Записаться на консультацию</a>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════
-     ABOUT
-══════════════════════════════════════ -->
-<section class="about" id="about">
+<!-- ======================================================== -->
+<!-- ABOUT                                                    -->
+<!-- ======================================================== -->
+<section class="section section--alt" id="about">
   <div class="container">
-    <div class="about__inner">
-      <div class="about__photo">Фото врача</div>
-      <div class="about__text">
-        <h2 class="about__headline">Почему пациентки выбирают меня</h2>
-        <p class="about__intro">Я врач интегративной медицины с [ЛЕТА_ОПЫТА]-летним опытом. Специализируюсь на гормональном здоровье женщин в период пременопаузы и менопаузы.</p>
-        <div class="about__diffs">
-          <div class="about__diff">
-            <div class="about__diff-icon">🔬</div>
-            <div>
-              <div class="about__diff-title">Смотрю глубже «нормы»</div>
-              <div class="about__diff-text">Стандартные анализы показывают «норму» при значениях, которые функциональная медицина считает субоптимальными. Я работаю с оптимальными диапазонами.</div>
-            </div>
+    <div class="about__grid">
+
+      <div class="about__photo-col fade-up">
+        <div class="about__badge-float">
+          <span class="about__badge-icon">🎓</span>
+          <div class="about__badge-text">
+            Диплом врача
+            <span>Первый МГМУ им. Сеченова</span>
           </div>
-          <div class="about__diff">
-            <div class="about__diff-icon">🌿</div>
-            <div>
-              <div class="about__diff-title">Без синтетических гормонов — если возможно</div>
-              <div class="about__diff-text">Ищу первопричину — нутрициологические дефициты, стресс, воспаление. Гормональная терапия — только если действительно необходима.</div>
-            </div>
+        </div>
+        <div class="about__photo-box">
+          <img src="data:image/jpeg;base64,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" alt="Елена Русова" style="width:100%;height:100%;object-fit:cover;object-position:top;border-radius:24px">
+        </div>
+      </div>
+
+      <div class="fade-up delay-2">
+        <div class="about__chip">О враче</div>
+        <h2 class="about__name">Русова Елена Леонидовна</h2>
+        <p class="about__role">Гинеколог-эндокринолог · Интегративная медицина · Anti-aging специалист</p>
+        <p class="about__bio">
+          Я занялась интегративной медициной, потому что видела, как пациентки годами ходят по кругу
+          от врача к врачу и слышат: «всё в норме». Но им плохо. Я знаю, что за этим стоит гормональный
+          дисбаланс — и знаю, как его найти и устранить без агрессивных вмешательств.
+        </p>
+        <div class="about__stats">
+          <div class="about__stat">
+            <span class="about__stat-num" data-count="12">0</span>
+            <span class="about__stat-lbl">лет практики</span>
           </div>
-          <div class="about__diff">
-            <div class="about__diff-icon">⚙️</div>
-            <div>
-              <div class="about__diff-title">Системный подход</div>
-              <div class="about__diff-text">Гормоны, питание, сон, стресс, нутрицевтики — всё в одном протоколе. Не таблетка от симптома, а восстановление баланса.</div>
-            </div>
+          <div class="about__stat">
+            <span class="about__stat-num" data-count="300">0</span>
+            <span class="about__stat-lbl">пациенток</span>
           </div>
-          <div class="about__diff">
-            <div class="about__diff-icon">💬</div>
-            <div>
-              <div class="about__diff-title">Сопровождение, а не разовая консультация</div>
-              <div class="about__diff-text">Я на связи в Telegram между консультациями. Вы не остаётесь один на один с протоколом.</div>
-            </div>
+          <div class="about__stat">
+            <span class="about__stat-num">4.9★</span>
+            <span class="about__stat-lbl">рейтинг</span>
           </div>
         </div>
         <div class="about__creds">
-          <span class="about__cred">Врач-терапевт</span>
-          <span class="about__cred">Гинеколог-эндокринолог</span>
-          <span class="about__cred">Функциональная медицина</span>
-          <span class="about__cred">Нутрициология</span>
-          <span class="about__cred">[ЛЕТА_ОПЫТА] лет опыта</span>
-          <span class="about__cred">500+ пациентов</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════
-     HOW I WORK
-══════════════════════════════════════ -->
-<section class="how" id="how">
-  <div class="container">
-    <div class="title-block text-center">
-      <h2 class="section-title">Как проходит работа</h2>
-    </div>
-    <div class="how__steps">
-      <div class="how__step">
-        <div class="how__step-num">1</div>
-        <div class="how__step-body">
-          <div class="how__step-title">Первичная консультация (60 мин)</div>
-          <div class="how__step-text">Разбираем вашу историю, симптомы, образ жизни. Онлайн или в клинике в [ГОРОД]. Я уже понимаю вероятную причину.</div>
-        </div>
-      </div>
-      <div class="how__step">
-        <div class="how__step-num">2</div>
-        <div class="how__step-body">
-          <div class="how__step-title">Анализы под вашу ситуацию</div>
-          <div class="how__step-text">Назначаю конкретный список — не стандартный «общий анализ крови», а именно те маркеры, которые нужны в вашем случае.</div>
-        </div>
-      </div>
-      <div class="how__step">
-        <div class="how__step-num">3</div>
-        <div class="how__step-body">
-          <div class="how__step-title">Персональный протокол</div>
-          <div class="how__step-text">Нутрицевтики, питание, режим, рекомендации по образу жизни. Всё расписано по шагам — без перегруза.</div>
-        </div>
-      </div>
-      <div class="how__step">
-        <div class="how__step-num">4</div>
-        <div class="how__step-body">
-          <div class="how__step-title">Сопровождение 3 месяца</div>
-          <div class="how__step-text">Контрольные консультации + Telegram-поддержка. Корректируем протокол по вашей реакции и повторным анализам.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════
-     REVIEWS
-══════════════════════════════════════ -->
-<section class="reviews">
-  <div class="container">
-    <div class="title-block">
-      <h2 class="section-title">Что говорят пациентки</h2>
-      <p class="section-subtitle">Реальные истории — с именами и конкретными результатами</p>
-    </div>
-    <div class="reviews__cards">
-      <div class="review__card">
-        <div class="review__top">
-          <div class="review__avatar">ЕМ</div>
-          <div>
-            <div class="review__name">Елена М., 52 года</div>
-            <div class="review__badge">Ушли приливы за 6 недель</div>
+          <div class="about__cred">
+            <div class="about__dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+            Гинеколог-эндокринолог — Первый МГМУ им. Сеченова
+          </div>
+          <div class="about__cred">
+            <div class="about__dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+            Сертификат по интегративной и anti-aging медицине
+          </div>
+          <div class="about__cred">
+            <div class="about__dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+            Нутрициология и биохакинг здоровья
+          </div>
+          <div class="about__cred">
+            <div class="about__dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+            Член Ассоциации интегративной медицины России
           </div>
         </div>
-        <div class="review__text">Три года мучилась с ночными потами и бессонницей. Гинеколог предлагала только ЗГТ, я боялась. После первой консультации поняла — есть другой путь. Через 6 недель приливы ушли, сплю 7 часов без пробуждений.</div>
       </div>
-      <div class="review__card">
-        <div class="review__top">
-          <div class="review__avatar">НК</div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================== -->
+<!-- STEPS                                                    -->
+<!-- ======================================================== -->
+<section class="section" id="how">
+  <div class="container">
+    <div class="section__header fade-up">
+      <p class="section__label">Методология</p>
+      <h2 class="section__title">4 шага к гормональному балансу</h2>
+      <p class="section__sub">Понятный путь от первого обращения до стойкого результата</p>
+    </div>
+    <div class="steps__grid">
+      <div class="steps__line"></div>
+      <div class="step fade-up delay-1">
+        <div class="step__num">1</div>
+        <h3>Первичная консультация</h3>
+        <p>Глубокий сбор анамнеза: ваша история, симптомы, образ жизни. 60–90 минут без спешки.</p>
+        <span class="step__tag">Онлайн или в Москве</span>
+      </div>
+      <div class="step fade-up delay-2">
+        <div class="step__num">2</div>
+        <h3>Расширенная диагностика</h3>
+        <p>Индивидуальный список анализов и исследований — только то, что действительно нужно вам.</p>
+        <span class="step__tag">Без лишнего</span>
+      </div>
+      <div class="step fade-up delay-3">
+        <div class="step__num">3</div>
+        <h3>Персональный протокол</h3>
+        <p>Комплексный план: питание, добавки, образ жизни, при необходимости — мягкая гормональная поддержка.</p>
+        <span class="step__tag">Индивидуально</span>
+      </div>
+      <div class="step fade-up delay-4">
+        <div class="step__num">4</div>
+        <h3>Сопровождение</h3>
+        <p>Контроль результатов каждые 4–6 недель. Корректировка протокола. Ответы в Telegram.</p>
+        <span class="step__tag">Не бросаю</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================== -->
+<!-- PROGRAMS                                                 -->
+<!-- ======================================================== -->
+<section class="section section--alt" id="programs">
+  <div class="container">
+    <div class="section__header fade-up">
+      <p class="section__label">Программы</p>
+      <h2 class="section__title">Выберите свой формат</h2>
+      <p class="section__sub">Три варианта — от пробного знакомства до полного сопровождения</p>
+    </div>
+    <div class="programs__grid">
+
+      <!-- Лайт -->
+      <div class="tariff fade-up delay-1">
+        <div class="tariff__name">Лайт</div>
+        <div class="tariff__desc">Пробное знакомство</div>
+        <div class="tariff__price-row">
+          <span class="tariff__cur">₽</span>
+          <span class="tariff__amount" data-count="490">0</span>
+        </div>
+        <div class="tariff__dur">Разовая консультация</div>
+        <div class="tariff__line"></div>
+        <div class="tariff__feats">
+          <div class="tariff__feat"><div class="tariff__chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Консультация 30 минут</div>
+          <div class="tariff__feat"><div class="tariff__chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Разбор основных симптомов</div>
+          <div class="tariff__feat"><div class="tariff__chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Рекомендации по базовым анализам</div>
+          <div class="tariff__feat"><div class="tariff__chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Онлайн через Zoom или Telegram</div>
+        </div>
+        <a href="#contact" class="btn btn--outline-green btn--full">Выбрать</a>
+      </div>
+
+      <!-- Стандарт -->
+      <div class="tariff tariff--pop fade-up delay-2">
+        <div class="tariff__popular">★ Популярный</div>
+        <div class="tariff__name">Стандарт</div>
+        <div class="tariff__desc">Оптимальный старт</div>
+        <div class="tariff__price-row">
+          <span class="tariff__cur">₽</span>
+          <span class="tariff__amount" data-count="990">0</span>
+        </div>
+        <div class="tariff__dur">Консультация + базовый план</div>
+        <div class="tariff__line"></div>
+        <div class="tariff__feats">
+          <div class="tariff__feat"><div class="tariff__chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Консультация 60 минут</div>
+          <div class="tariff__feat"><div class="tariff__chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Детальный разбор симптомов</div>
+          <div class="tariff__feat"><div class="tariff__chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Список анализов и исследований</div>
+          <div class="tariff__feat"><div class="tariff__chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Базовые рекомендации по питанию</div>
+          <div class="tariff__feat"><div class="tariff__chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Ответы на вопросы 7 дней в Telegram</div>
+        </div>
+        <a href="#contact" class="btn btn--primary btn--full">Выбрать</a>
+      </div>
+
+      <!-- ВИП -->
+      <div class="tariff fade-up delay-3">
+        <div class="tariff__name">ВИП</div>
+        <div class="tariff__desc">Полное сопровождение</div>
+        <div class="tariff__price-row">
+          <span class="tariff__cur">₽</span>
+          <span class="tariff__amount" data-count="1990">0</span>
+        </div>
+        <div class="tariff__dur">3 месяца программы</div>
+        <div class="tariff__line"></div>
+        <div class="tariff__feats">
+          <div class="tariff__feat"><div class="tariff__chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Консультация 90 минут</div>
+          <div class="tariff__feat"><div class="tariff__chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Полный индивидуальный протокол</div>
+          <div class="tariff__feat"><div class="tariff__chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>3 контрольные консультации</div>
+          <div class="tariff__feat"><div class="tariff__chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Нутрициология + добавки + образ жизни</div>
+          <div class="tariff__feat"><div class="tariff__chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Постоянная связь в Telegram 3 месяца</div>
+        </div>
+        <a href="#contact" class="btn btn--accent btn--full">Выбрать</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================== -->
+<!-- REVIEWS                                                  -->
+<!-- ======================================================== -->
+<section class="section" id="reviews">
+  <div class="container">
+    <div class="section__header fade-up">
+      <p class="section__label">Отзывы</p>
+      <h2 class="section__title">Что говорят пациентки</h2>
+      <p class="section__sub">Реальные истории с именами, возрастом и конкретными результатами</p>
+    </div>
+
+    <div class="reviews__top">
+      <div class="reviews__stat fade-up delay-1">
+        <span class="reviews__stat-num" data-count="300">0</span>
+        <span class="reviews__stat-lbl">пациенток получили помощь</span>
+      </div>
+      <div class="reviews__stat fade-up delay-2">
+        <span class="reviews__stat-num" data-count="12">0</span>
+        <span class="reviews__stat-lbl">лет клинической практики</span>
+      </div>
+      <div class="reviews__stat fade-up delay-3">
+        <span class="reviews__stat-num">4.9★</span>
+        <span class="reviews__stat-lbl">средний рейтинг</span>
+      </div>
+    </div>
+
+    <div class="reviews__grid">
+      <div class="review fade-up delay-1">
+        <span class="review__quote">"</span>
+        <p class="review__text">
+          Три года ходила по врачам — все говорили «норма». Елена за первую консультацию нашла
+          проблему с щитовидкой и эстрогеном. Через 6 недель приливы прошли, сплю как в 30 лет.
+        </p>
+        <div class="review__result">✅ Приливы прошли за 6 недель</div>
+        <div class="review__author">
+          <div class="review__avatar av-1">А</div>
           <div>
-            <div class="review__name">Наталья К., 48 лет</div>
-            <div class="review__badge">Минус 8 кг за 3 месяца</div>
+            <div class="review__name">Анна К.</div>
+            <div class="review__age">52 года · в Москве</div>
+            <div class="review__stars">★★★★★</div>
           </div>
         </div>
-        <div class="review__text">Набирала вес несмотря на правильное питание и спорт. Оказалось — субоптимальный кортизол и дефицит прогестерона. За 3 месяца по протоколу ушло 8 кг и вернулась энергия.</div>
       </div>
-      <div class="review__card">
-        <div class="review__top">
-          <div class="review__avatar">ИС</div>
+
+      <div class="review fade-up delay-2">
+        <span class="review__quote">"</span>
+        <p class="review__text">
+          Набрала 12 кг за год при том же питании. Гинеколог сказал «это климакс, примите».
+          Елена составила протокол — за 3 месяца минус 8 кг. И главное: энергия вернулась!
+        </p>
+        <div class="review__result">✅ Минус 8 кг за 3 месяца</div>
+        <div class="review__author">
+          <div class="review__avatar av-2">М</div>
           <div>
-            <div class="review__name">Ирина С., 55 лет</div>
-            <div class="review__badge">Нормализовался сон</div>
+            <div class="review__name">Марина В.</div>
+            <div class="review__age">48 лет · Санкт-Петербург</div>
+            <div class="review__stars">★★★★★</div>
           </div>
         </div>
-        <div class="review__text">Анализы были «в норме» у всех врачей. Здесь впервые посмотрели на оптимальные значения — нашли дефицит витамина D и железа. Через месяц перестала просыпаться в 3 ночи.</div>
       </div>
-    </div>
-    <div class="reviews__stats">
-      <div class="reviews__stat">
-        <div class="reviews__stat-num">500+</div>
-        <div class="reviews__stat-label">пациентов</div>
-      </div>
-      <div class="reviews__stat">
-        <div class="reviews__stat-num">92%</div>
-        <div class="reviews__stat-label">отмечают улучшение за 6 недель</div>
-      </div>
-      <div class="reviews__stat">
-        <div class="reviews__stat-num">8 лет</div>
-        <div class="reviews__stat-label">практики</div>
+
+      <div class="review fade-up delay-3">
+        <span class="review__quote">"</span>
+        <p class="review__text">
+          Не спала нормально 2 года. Перепробовала всё — не помогало. После консультации Елены
+          и её протокола уже через месяц засыпаю спокойно. Это просто чудо для меня.
+        </p>
+        <div class="review__result">✅ Нормальный сон за 4 недели</div>
+        <div class="review__author">
+          <div class="review__avatar av-3">Т</div>
+          <div>
+            <div class="review__name">Татьяна Н.</div>
+            <div class="review__age">55 лет · Онлайн</div>
+            <div class="review__stars">★★★★★</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════
-     PROGRAM
-══════════════════════════════════════ -->
-<section class="program" id="program">
+<!-- ======================================================== -->
+<!-- FAQ                                                      -->
+<!-- ======================================================== -->
+<section class="section section--alt" id="faq">
   <div class="container">
-    <div class="title-block">
-      <h2 class="section-title">Программа «Гормональный перезапуск 45+»</h2>
-      <p class="section-subtitle">3 месяца комплексной работы с причиной, а не симптомами</p>
+    <div class="section__header fade-up">
+      <p class="section__label">Вопросы и ответы</p>
+      <h2 class="section__title">Отвечаю на частые вопросы</h2>
+      <p class="section__sub">Если не нашли ответ — напишите мне в Telegram</p>
     </div>
-    <div class="program__inner">
-      <div>
-        <ul class="program__checklist">
-          <li><span class="program__check">✓</span> Первичная консультация 60 минут (онлайн или офлайн)</li>
-          <li><span class="program__check">✓</span> Анализ расширенной гормональной панели</li>
-          <li><span class="program__check">✓</span> Персональный протокол нутрицевтиков и питания</li>
-          <li><span class="program__check">✓</span> 2 контрольные консультации (месяц 2 и месяц 3)</li>
-          <li><span class="program__check">✓</span> Telegram-поддержка в течение 3 месяцев</li>
-          <li><span class="program__check">✓</span> Итоговый отчёт и план на следующий период</li>
-        </ul>
+
+    <div class="faq__list fade-up delay-1">
+      <div class="faq__item">
+        <button class="faq__q" onclick="toggleFaq(this)">Чем интегративная медицина отличается от обычной гинекологии?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">Обычный гинеколог смотрит на репродуктивную систему в изоляции. Я рассматриваю организм как систему — гормоны, питание, стресс, сон, кишечник всё взаимосвязано. Ищу причину, а не лечу симптом. Не «выпишите таблетку», а «почему это происходит именно у вас».</div></div>
       </div>
-      <div class="program__price-card">
-        <div class="program__price-label">Стоимость программы</div>
-        <div class="program__price">от [ЦЕНА_ПРОГРАММЫ] ₽</div>
-        <div class="program__price-small">Или начни с первичной консультации — [ЦЕНА_КОНСУЛЬТ] ₽</div>
-        <a href="#contact" class="btn btn-accent">Записаться на программу →</a>
-        <a href="#quiz" class="program__secondary">Или сначала пройди тест →</a>
-        <div class="program__guarantee">🛡 Если после первой консультации программа вам не подойдёт — верну деньги за неё полностью</div>
+      <div class="faq__item">
+        <button class="faq__q" onclick="toggleFaq(this)">Как проходит онлайн-консультация?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">Через Zoom или Google Meet. После записи пришлю ссылку в Telegram. Заранее попрошу заполнить небольшую анкету — чтобы время использовать максимально эффективно. Понадобятся: тихое место, 60–90 минут, анализы (если есть).</div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" onclick="toggleFaq(this)">Нужно ли сдавать анализы до консультации?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">Не обязательно. Если есть свежие анализы (до 3–6 месяцев) — берите с собой. Если нет — составлю индивидуальный список именно тех, которые нужны в вашем случае. Не буду назначать «всё подряд».</div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" onclick="toggleFaq(this)">Вы работаете с женщинами в менопаузе?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">Да, это одна из моих основных специализаций. Пременопауза, менопауза, постменопауза — каждый этап требует своего подхода. Многие пациентки приходят именно с вопросами о менопаузе, когда чувствуют, что «всё рассыпалось».</div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" onclick="toggleFaq(this)">Сколько длится программа и когда будет результат?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">Первые изменения большинство пациенток замечают через 3–6 недель. Устойчивый результат — 3–4 месяца. Гормональная система перестраивается постепенно. Я буду рядом на всём этом пути.</div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" onclick="toggleFaq(this)">Есть ли офлайн-приём в Москве?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">Да, принимаю в Москве. Точный адрес уточните при записи в Telegram — локация зависит от расписания. Большинство вопросов прекрасно решается онлайн, но если важна очная встреча — организуем.</div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" onclick="toggleFaq(this)">Как вы работаете без синтетических гормонов?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">Интегративный подход — это расширение инструментов. Сначала питание, нутрициология, образ жизни, микроэлементы. При необходимости — биоидентичные гормоны. Синтетические — крайняя мера. Ничего не навязываю.</div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" onclick="toggleFaq(this)">Как связаться между консультациями?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">В пакете Стандарт — ответы на вопросы в Telegram 7 дней. В ВИП — Telegram-связь 3 месяца. Обычно отвечаю в течение нескольких часов в рабочие дни. Вы не будете брошены после консультации.</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════
-     FAQ
-══════════════════════════════════════ -->
-<section class="faq">
-  <div class="container">
-    <div class="title-block text-center">
-      <h2 class="section-title">Часто спрашивают</h2>
-    </div>
-    <div class="faq__list">
-      <details>
-        <summary>Это онлайн или нужно приезжать?</summary>
-        <div class="faq__answer">Работаю онлайн (видеоконсультации) и офлайн в [ГОРОД]. Онлайн — полноценный формат, 90% работы не требует очного осмотра. Анализы можно сдать в любой лаборатории вашего города.</div>
-      </details>
-      <details>
-        <summary>Вы будете назначать гормональные препараты?</summary>
-        <div class="faq__answer">Только если это действительно необходимо после оценки всей картины. В большинстве случаев удаётся восстановить баланс через нутрицевтики, питание и образ жизни. Я сторонник минимального вмешательства.</div>
-      </details>
-      <details>
-        <summary>Сколько консультаций мне понадобится?</summary>
-        <div class="faq__answer">Для заметного результата — программа из 3 месяцев (3–4 консультации + сопровождение). Можно начать с одной первичной консультации, чтобы понять направление и принять решение.</div>
-      </details>
-      <details>
-        <summary>У меня уже есть гинеколог — зачем ещё один врач?</summary>
-        <div class="faq__answer">Интегративный подход дополняет, а не заменяет. Гинеколог смотрит на орган — я смотрю на систему целиком: гормоны, питание, нутрицевтики, образ жизни. Часто находим то, что пропускается при стандартном осмотре.</div>
-      </details>
-      <details>
-        <summary>Мои анализы в норме — поможет ли это мне?</summary>
-        <div class="faq__answer">Именно для таких случаев интегративная медицина и существует. «Норма» лаборатории и «оптимум» для здоровья — разные вещи. Я смотрю на функциональные диапазоны и нахожу причины симптомов там, где стандартный анализ говорит «всё хорошо».</div>
-      </details>
-      <details>
-        <summary>Как начать?</summary>
-        <div class="faq__answer">Самый простой путь — пройти бесплатный тест на сайте. Я свяжусь в течение 24 часов и мы обсудим вашу ситуацию. Или запишитесь сразу на первичную консультацию через форму ниже.</div>
-      </details>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════
-     CONTACT
-══════════════════════════════════════ -->
+<!-- ======================================================== -->
+<!-- CONTACT                                                  -->
+<!-- ======================================================== -->
 <section class="contact" id="contact">
   <div class="container">
-    <h2 class="contact__title">Готова разобраться в причине ваших симптомов</h2>
-    <p class="contact__sub">Запишитесь на первичную консультацию — онлайн или в [ГОРОД]</p>
     <div class="contact__inner">
-      <div class="contact__form-card">
-        <form class="contact__form" id="contactForm" onsubmit="submitContact(event)">
-          <input class="contact__input" type="text" id="cName" placeholder="Ваше имя" required>
-          <input class="contact__input" type="tel" id="cContact" placeholder="Телефон или Telegram" required>
-          <select class="contact__select" id="cFormat">
-            <option value="" disabled selected>Формат консультации</option>
-            <option value="Онлайн">Онлайн</option>
-            <option value="Офлайн в [ГОРОД]">Офлайн в [ГОРОД]</option>
-          </select>
-          <textarea class="contact__textarea" id="cComment" placeholder="Коротко опишите ситуацию (необязательно)"></textarea>
-          <button type="submit" class="btn btn-accent">Отправить заявку →</button>
-          <div class="contact__btn-note">Отвечаю в Telegram в течение 24 часов</div>
-        </form>
-        <div class="contact__thanks" id="contactThanks">
-          <div class="contact__thanks-text">Спасибо! Я получила вашу заявку и свяжусь с вами в течение 24 часов.</div>
-        </div>
-      </div>
-      <div class="contact__info">
-        <div class="contact__info-head">Связаться напрямую</div>
-        <div class="contact__links">
-          <a href="https://t.me/[TG_USERNAME]" class="contact__link">
-            <div class="contact__link-icon">✈️</div>
-            <span>Telegram: @[TG_USERNAME]</span>
+
+      <div class="fade-up">
+        <h2 class="contact__title">Сделайте первый шаг</h2>
+        <p class="contact__sub">Запишитесь на первичную консультацию. Я отвечу в Telegram в течение 2 часов и согласую удобное время.</p>
+        <div class="contact__info">
+          <a href="https://t.me/Elen_Ru888" class="contact__item" target="_blank" rel="noopener">
+            <span class="contact__ico">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+            </span>
+            @Elen_Ru888
           </a>
-          <a href="tel:[PHONE]" class="contact__link">
-            <div class="contact__link-icon">📞</div>
-            <span>[PHONE]</span>
+          <a href="tel:+79856907098" class="contact__item">
+            <span class="contact__ico">📞</span>
+            +7 985 690-70-98
           </a>
-          <a href="https://instagram.com/[IG_USERNAME]" class="contact__link">
-            <div class="contact__link-icon">📷</div>
-            <span>Instagram: @[IG_USERNAME]</span>
+          <div class="contact__item">
+            <span class="contact__ico">📍</span>
+            Онлайн (Zoom/Telegram) · в Москве
+          </div>
+          <a href="https://instagram.com/drElen_Ru" class="contact__item" target="_blank" rel="noopener">
+            <span class="contact__ico">📸</span>
+            @drElen_Ru
           </a>
         </div>
-        <a href="#contact" class="btn btn-outline" style="border-color:rgba(255,255,255,.5);color:var(--white);">Записаться на консультацию →</a>
       </div>
+
+      <div class="fade-up delay-2">
+        <div class="contact__form-box">
+          <div id="formInner">
+            <h3 class="contact__form-title">Записаться на консультацию</h3>
+            <p class="contact__form-sub">Консультация от 490 ₽ · Отвечу в течение 2 часов</p>
+            <form onsubmit="submitForm(event)">
+              <div class="form-group">
+                <input type="text" class="form-input" id="fName"    placeholder="Ваше имя"                required>
+              </div>
+              <div class="form-group">
+                <input type="tel"  class="form-input" id="fPhone"   placeholder="Telegram или телефон"    required>
+              </div>
+              <div class="form-group">
+                <select class="form-input" id="fProgram" style="cursor:pointer;">
+                  <option value="">Программа (по желанию)</option>
+                  <option>Лайт — 490 ₽</option>
+                  <option>Стандарт — 990 ₽</option>
+                  <option>ВИП — 1 990 ₽</option>
+                  <option>Не определилась</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn--accent btn--full">Записаться →</button>
+            </form>
+            <p class="form__privacy">Нажимая кнопку, вы соглашаетесь на обработку персональных данных в соответствии с Политикой конфиденциальности</p>
+          </div>
+          <div class="form__success" id="formOk">
+            <div class="form__success-icon">🌿</div>
+            <h3>Заявка отправлена!</h3>
+            <p>Елена свяжется с вами в Telegram<br>в течение 2 часов</p>
+            <a href="https://t.me/Elen_Ru888" class="btn btn--primary" style="margin-top:20px" target="_blank" rel="noopener">Написать прямо сейчас</a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-</main>
-
-<!-- ══════════════════════════════════════
-     FOOTER
-══════════════════════════════════════ -->
+<!-- ======================================================== -->
+<!-- FOOTER                                                   -->
+<!-- ======================================================== -->
 <footer class="footer">
-  <div class="container">
-    <div class="footer__grid">
-      <div>
-        <div class="footer__brand-name">Русова Елена Леонидовна</div>
-        <div class="footer__brand-spec">Врач интегративной медицины · Гинеколог-эндокринолог</div>
-        <div class="footer__tagline">Помогаю женщинам 45+ восстановить гормональный баланс и вернуть качество жизни</div>
-      </div>
-      <div>
-        <div class="footer__col-title">Навигация</div>
-        <ul class="footer__nav-links">
-          <li><a href="#about">О враче</a></li>
-          <li><a href="#how">Как работаю</a></li>
-          <li><a href="#program">Программа</a></li>
-          <li><a href="#quiz">Пройти тест</a></li>
-          <li><a href="#contact">Записаться</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer__col-title">Контакты</div>
-        <div class="footer__contact-items">
-          <div class="footer__contact-item">✈️ @[TG_USERNAME]</div>
-          <div class="footer__contact-item">📞 [PHONE]</div>
-          <div class="footer__contact-item">📷 @[IG_USERNAME]</div>
-          <div class="footer__contact-item">📍 [ГОРОД] (офлайн)</div>
-        </div>
-      </div>
+  <div class="container footer__inner">
+    <div class="footer__logo">Елена Русова</div>
+    <div class="footer__links">
+      <a href="#pain">Симптомы</a>
+      <a href="#about">О враче</a>
+      <a href="#programs">Программы</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#">Политика конфиденциальности</a>
     </div>
-    <div class="footer__bottom">
-      © 2025 Русова Елена Леонидовна · Не является публичной офертой · Имеются противопоказания, проконсультируйтесь со специалистом
-    </div>
+    <div class="footer__copy">© 2026 Русова Елена Леонидовна</div>
   </div>
 </footer>
 
+<!-- ======================================================== -->
+<!-- TELEGRAM STICKY                                          -->
+<!-- ======================================================== -->
+<a href="https://t.me/Elen_Ru888" class="tg-sticky" target="_blank" rel="noopener" aria-label="Написать в Telegram">
+  <svg viewBox="0 0 24 24" fill="white">
+    <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
+  </svg>
+  Написать
+</a>
+
+<!-- ======================================================== -->
+<!-- SCRIPTS                                                  -->
+<!-- ======================================================== -->
 <script>
-  // ──────────────────────────────────────
-  // Telegram notification
-  // ──────────────────────────────────────
-  async function sendToTelegram(formData) {
-    const BOT_TOKEN = 'REPLACE_WITH_YOUR_BOT_TOKEN'; // @BotFather
-    const CHAT_ID   = 'REPLACE_WITH_YOUR_CHAT_ID';  // @userinfobot
-    const text = `
-🆕 Новая заявка с лендинга!
-👤 Имя: ${formData.name}
-📞 Контакт: ${formData.contact}
-📍 Формат: ${formData.format || 'не указан'}
-💬 Комментарий: ${formData.comment || 'не указан'}
-⏰ ${new Date().toLocaleString('ru-RU')}
-    `.trim();
-    // TODO: replace BOT_TOKEN and CHAT_ID before deploying
-    try {
-      await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: CHAT_ID, text })
-      });
-    } catch (e) {
-      console.warn('Telegram send failed:', e);
-    }
-  }
+/* ── HEADER ── */
+const $header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+  $header.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
 
-  // ──────────────────────────────────────
-  // NAV
-  // ──────────────────────────────────────
-  function openMenu()  { document.getElementById('navOverlay').classList.add('open'); }
-  function closeMenu() { document.getElementById('navOverlay').classList.remove('open'); }
+/* ── MOBILE MENU ── */
+const $ham     = document.getElementById('hamburger');
+const $mobileNav = document.getElementById('mobileNav');
+const $overlay = document.getElementById('navOverlay');
 
-  // ──────────────────────────────────────
-  // QUIZ
-  // ──────────────────────────────────────
-  const quizAnswers = {};
+function toggleMenu(open) {
+  $ham.classList.toggle('open', open);
+  $mobileNav.classList.toggle('open', open);
+  $overlay.classList.toggle('open', open);
+  $ham.setAttribute('aria-expanded', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+$ham.addEventListener('click', () => toggleMenu(!$mobileNav.classList.contains('open')));
+$overlay.addEventListener('click', () => toggleMenu(false));
+document.querySelectorAll('.mnav, .mobile-nav .btn').forEach(a =>
+  a.addEventListener('click', () => toggleMenu(false))
+);
 
-  function goToStep(step) {
-    // Save current answer
-    for (let i = 1; i <= 5; i++) {
-      const checked = document.querySelector(`input[name="q${i}"]:checked`);
-      if (checked) quizAnswers[`q${i}`] = checked.value;
-    }
+/* ── SCROLL ANIMATIONS ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 
-    // Hide all questions
-    document.querySelectorAll('.quiz__question').forEach(el => el.classList.remove('visible'));
-    document.getElementById('quizLead').classList.remove('visible');
+/* ── COUNTERS ── */
+function animCount(el) {
+  const target = +el.dataset.count;
+  let cur = 0;
+  const step = target / (1800 / 16);
+  const t = setInterval(() => {
+    cur += step;
+    if (cur >= target) { cur = target; clearInterval(t); }
+    el.textContent = Math.floor(cur) + (target >= 100 ? '+' : '');
+  }, 16);
+}
+const cntObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { animCount(e.target); cntObs.unobserve(e.target); } });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => cntObs.observe(el));
 
-    // Update progress
-    for (let i = 1; i <= 5; i++) {
-      document.getElementById(`ps${i}`).classList.toggle('active', i <= step);
-    }
+/* ── QUIZ ── */
+let qStep = 0;
+const qAnswers = [];
+const Q_TOTAL = 5;
 
-    const qEl = document.getElementById(`q${step}`);
-    if (qEl) {
-      qEl.classList.add('visible');
-      // Restore selection if back
-      const saved = quizAnswers[`q${step}`];
-      if (saved) {
-        const radio = document.querySelector(`input[name="q${step}"][value="${saved}"]`);
-        if (radio) radio.checked = true;
-      }
-    }
-  }
-
-  function goToLead() {
-    // Save Q5
-    const checked = document.querySelector('input[name="q5"]:checked');
-    if (checked) quizAnswers.q5 = checked.value;
-
-    document.querySelectorAll('.quiz__question').forEach(el => el.classList.remove('visible'));
-    document.getElementById('quizLead').classList.add('visible');
-    document.getElementById('quizProgress').style.display = 'none';
-  }
-
-  function submitQuiz(e) {
-    e.preventDefault();
-    const name    = document.getElementById('quizName').value.trim();
-    const contact = document.getElementById('quizContact').value.trim();
-    const freeConsult = document.getElementById('quizFreeConsult').checked;
-
-    const formData = {
-      name,
-      contact,
-      format: freeConsult ? 'Хочет бесплатную консультацию по результатам теста' : 'Только карта симптомов',
-      comment: `Ответы теста: ${JSON.stringify(quizAnswers)}`
-    };
-
-    console.log('Quiz submission:', formData); // replace with real backend
-    sendToTelegram(formData);
-
-    document.getElementById('quizLead').classList.remove('visible');
-    const resultEl = document.getElementById('quizResult');
-    resultEl.classList.add('visible');
-    document.getElementById('quizResultText').innerHTML =
-      `Спасибо, <strong>${name}</strong>! Ваша карта симптомов сформирована. Я свяжусь с вами в Telegram в течение 24 часов для короткого разбора.`;
-  }
-
-  // Highlight selected option
-  document.querySelectorAll('.quiz__option input[type="radio"]').forEach(radio => {
-    radio.addEventListener('change', () => {
-      const name = radio.name;
-      document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
-        r.closest('.quiz__option').classList.toggle('selected', r.checked);
-      });
-    });
+function qGetSteps() { return document.querySelectorAll('.quiz__step'); }
+function qUpdateProgress() {
+  const pct = Math.round((qStep / Q_TOTAL) * 100);
+  document.getElementById('quizFill').style.width = pct + '%';
+  document.getElementById('quizPct').textContent = qStep < Q_TOTAL ? (qStep + 1) + ' из ' + Q_TOTAL : 'Готово';
+}
+function qShowStep(n) {
+  qGetSteps().forEach(s => s.classList.remove('active'));
+  const t = document.querySelector(`.quiz__step[data-step="${n}"]`);
+  if (t) t.classList.add('active');
+}
+function qNext() {
+  const opts = document.querySelectorAll(`.quiz__step[data-step="${qStep}"] .quiz__opt`);
+  const sel  = [...opts].find(o => o.classList.contains('selected'));
+  if (!sel) { opts.forEach(o => { o.style.animation = 'shake 0.3s'; setTimeout(() => o.style.animation = '', 350); }); return; }
+  qAnswers[qStep] = +sel.dataset.v;
+  if (qStep < Q_TOTAL - 1) { qStep++; qShowStep(qStep); qUpdateProgress(); }
+}
+function qPrev() {
+  if (qStep > 0) { qStep--; qShowStep(qStep); qUpdateProgress(); }
+}
+function qFinish() {
+  const opts = document.querySelectorAll(`.quiz__step[data-step="${qStep}"] .quiz__opt`);
+  const sel  = [...opts].find(o => o.classList.contains('selected'));
+  if (!sel) { opts.forEach(o => { o.style.animation = 'shake 0.3s'; setTimeout(() => o.style.animation = '', 350); }); return; }
+  qAnswers[qStep] = +sel.dataset.v;
+  const score = qAnswers.reduce((a, b) => a + b, 0);
+  let icon, title, sub;
+  if (score <= 8)       { icon='🌿'; title='Начальные изменения'; sub='Симптомы умеренные. Сейчас лучшее время заняться профилактикой и поддержать гормональный баланс.'; }
+  else if (score <= 14) { icon='⚡'; title='Умеренные изменения';  sub='Ваш организм сигналит. Разобраться сейчас проще, чем ждать — запущенный дисбаланс лечится дольше.'; }
+  else                  { icon='🔬'; title='Выраженные симптомы';  sub='Вы нуждаетесь в профессиональной помощи. Хорошая новость: в большинстве случаев это успешно корректируется.'; }
+  document.getElementById('qIcon').textContent  = icon;
+  document.getElementById('qTitle').textContent = title;
+  document.getElementById('qSub').textContent   = sub;
+  qGetSteps().forEach(s => s.classList.remove('active'));
+  qStep = Q_TOTAL; qUpdateProgress();
+  const r = document.getElementById('qResult');
+  r.classList.add('active');
+  r.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+// Option click
+document.querySelectorAll('.quiz__opt').forEach(btn => {
+  btn.addEventListener('click', function() {
+    this.closest('.quiz__step').querySelectorAll('.quiz__opt').forEach(o => o.classList.remove('selected'));
+    this.classList.add('selected');
   });
+});
+async function qSubmit() {
+  const name  = document.getElementById('qName').value.trim();
+  const phone = document.getElementById('qPhone').value.trim();
+  if (!name || !phone) { alert('Пожалуйста, заполните имя и Telegram/телефон'); return; }
+  const score = qAnswers.reduce((a, b) => a + b, 0);
+  await sendTg(`📊 Заявка из КВИЗА\n\nИмя: ${name}\nКонтакт: ${phone}\nБалл: ${score}/20\nОтветы: ${qAnswers.join(', ')}`);
+  document.getElementById('qResult').classList.remove('active');
+  document.getElementById('qSuccess').classList.add('active');
+}
 
-  // ──────────────────────────────────────
-  // CONTACT FORM
-  // ──────────────────────────────────────
-  function submitContact(e) {
-    e.preventDefault();
-    const formData = {
-      name:    document.getElementById('cName').value.trim(),
-      contact: document.getElementById('cContact').value.trim(),
-      format:  document.getElementById('cFormat').value,
-      comment: document.getElementById('cComment').value.trim()
-    };
+/* ── CONTACT FORM ── */
+async function submitForm(e) {
+  e.preventDefault();
+  const name    = document.getElementById('fName').value.trim();
+  const phone   = document.getElementById('fPhone').value.trim();
+  const program = document.getElementById('fProgram').value;
+  if (!name || !phone) return;
+  await sendTg(`📋 Заявка с САЙТА\n\nИмя: ${name}\nКонтакт: ${phone}${program ? '\nПрограмма: ' + program : ''}`);
+  document.getElementById('formInner').style.display = 'none';
+  document.getElementById('formOk').classList.add('active');
+}
 
-    console.log('Contact form submission:', formData); // replace with real backend
-    sendToTelegram(formData);
+/* ── TELEGRAM BOT ── */
+async function sendTg(text) {
+  const TOKEN = 'YOUR_BOT_TOKEN'; // Вставить токен от @BotFather
+  const CHAT  = 'YOUR_CHAT_ID';   // Вставить ID от @userinfobot
+  try {
+    await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: CHAT, text, parse_mode: 'HTML' })
+    });
+  } catch(err) { console.log('TG error:', err); }
+}
 
-    document.getElementById('contactForm').style.display = 'none';
-    document.getElementById('contactThanks').classList.add('visible');
+/* ── FAQ ── */
+function toggleFaq(btn) {
+  const ans    = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  document.querySelectorAll('.faq__q.open').forEach(q => {
+    q.classList.remove('open');
+    q.nextElementSibling.classList.remove('open');
+  });
+  if (!isOpen) { btn.classList.add('open'); ans.classList.add('open'); }
+}
+
+/* ── SMOOTH SCROLL ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); window.scrollTo({ top: t.offsetTop - 72, behavior: 'smooth' }); }
+  });
+});
+
+/* ── SHAKE KEYFRAME ── */
+const style = document.createElement('style');
+style.textContent = '@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }';
+document.head.appendChild(style);
+
+/* -- SCROLL PROGRESS BAR -- */
+(function(){
+  var p=document.createElement('div'); p.id='scrollProgress';
+  document.body.prepend(p);
+  window.addEventListener('scroll',function(){
+    var s=document.documentElement;
+    p.style.width=(s.scrollTop/(s.scrollHeight-s.clientHeight)*100)+'%';
+  },{passive:true});
+})();
+
+/* -- CURSOR SPOTLIGHT -- */
+(function(){
+  if(!window.matchMedia('(pointer:fine)').matches) return;
+  var sp=document.createElement('div'); sp.id='cursorSpot';
+  document.body.appendChild(sp);
+  document.addEventListener('mousemove',function(e){
+    sp.style.left=e.clientX+'px'; sp.style.top=e.clientY+'px'; sp.style.opacity='1';
+  });
+  document.addEventListener('mouseleave',function(){ sp.style.opacity='0'; });
+})();
+
+/* -- PARALLAX hero decorations -- */
+(function(){
+  var h=document.querySelector('.hero');
+  var r=document.querySelector('.hero__ring');
+  var g=document.querySelector('.hero__glow');
+  if(!h) return;
+  window.addEventListener('scroll',function(){
+    var s=window.scrollY;
+    if(s > h.offsetHeight*1.3) return;
+    if(r) r.style.transform='translateY('+(s*.45)+'px)';
+    if(g) g.style.transform='translateY('+(s*.25)+'px)';
+  },{passive:true});
+})();
+
+/* -- 3D CARD TILT -- */
+(function(){
+  if(window.matchMedia('(pointer:coarse)').matches) return;
+  function tilt(el,str,base){
+    el.addEventListener('mousemove',function(e){
+      var r=el.getBoundingClientRect();
+      var x=(e.clientX-r.left)/r.width-.5;
+      var y=(e.clientY-r.top)/r.height-.5;
+      el.style.transform=(base||'')+'perspective(900px) rotateY('+(x*str)+'deg) rotateX('+(-y*str)+'deg) translateY(-8px) scale(1.02)';
+      el.style.boxShadow='0 20px 60px rgba(0,0,0,.18)';
+      el.style.transition='box-shadow .08s';
+    });
+    el.addEventListener('mouseleave',function(){
+      el.style.transform=base||'';
+      el.style.boxShadow='';
+      el.style.transition='transform .45s ease,box-shadow .45s ease';
+    });
   }
+  document.querySelectorAll('.pain__card,.review,.step').forEach(function(c){ tilt(c,9); });
+  document.querySelectorAll('.tariff').forEach(function(c){
+    tilt(c,6,c.classList.contains('tariff--pop')?'scale(1.04) ':'');
+  });
+})();
+
+/* -- SECTION TITLE UNDERLINE -- */
+(function(){
+  var ob=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('line-visible'); ob.unobserve(e.target); }
+    });
+  },{threshold:0.6});
+  document.querySelectorAll('.section__title').forEach(function(t){ ob.observe(t); });
+})();
+
+/* -- FADE LEFT/RIGHT -- */
+(function(){
+  var ob=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('visible'); ob.unobserve(e.target); }
+    });
+  },{threshold:0.15});
+  document.querySelectorAll('.fade-left,.fade-right').forEach(function(el){ ob.observe(el); });
+})();
+
 </script>
 </body>
 </html>
