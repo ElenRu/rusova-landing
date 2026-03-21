@@ -896,7 +896,8 @@
       .hero__photo-wrap { order: -1; }
       .hero__float { display: none; }
       .about__grid { grid-template-columns: 1fr; }
-      .about__photo-col { max-width: 380px; margin: 0 auto; }
+      .about__photo-col { max-width: 380px; margin: 0 auto; overflow: hidden; }
+      .about__photo-col::before { display: none; }
       .about__badge-float { display: none; }
       .programs__grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
       .tariff--pop { transform: none; }
@@ -1682,7 +1683,7 @@
       <a href="#about">О враче</a>
       <a href="#programs">Программы</a>
       <a href="#reviews">Отзывы</a>
-      <a href="#">Политика конфиденциальности</a>
+      <a href="#" onclick="alert('Политика конфиденциальности: персональные данные, передаваемые через форму сайта, используются исключительно для записи на консультацию и не передаются третьим лицам. По вопросам удаления данных: @Elen_Ru888'); return false;">Политика конфиденциальности</a>
     </div>
     <div class="footer__copy">© 2026 Русова Елена Леонидовна</div>
   </div>
